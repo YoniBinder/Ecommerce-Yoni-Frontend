@@ -1,0 +1,18 @@
+
+
+.onsale{
+    color:red;
+    text-decoration: line-through;
+}
+
+.align{
+    width:"260px";
+    margin:"10px 20px";
+    padding:"10px";
+    border:"1px lightgrey solid"
+}
+
+.catalog{
+    width: 160px;
+    height:160px;
+}

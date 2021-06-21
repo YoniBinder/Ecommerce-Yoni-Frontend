@@ -1,0 +1,493 @@
+{
+    "products": [
+      {
+        "id": 0,
+        "price": 190.8,
+        "title": "Trezor Model T",
+        "image": "/pictures/T2.jpg",
+        "hardware": true,
+        "accessories": false,
+        "rating": 4,
+        "description": "The Trezor Model T is an advanced cryptocurrency hardware wallet. Store Bitcoin, passwords, tokens and other keys with confidence. Invented for your digital independence.",
+        "onsale": 170
+      },
+      {
+        "id": 1,
+        "price": 58.5,
+        "title": "Trezor Model One",
+        "image": "/pictures/T1.png",
+        "hardware": true,
+        "accessories": false,
+        "rating": 4,
+        "description": "The Trezor Model One is the most secure hardware wallet choice for everyone, whether you're new to Bitcoin or already an expert.",
+        "onsale": 58.5
+      },
+      {
+        "id": 2,
+        "price": 58.5,
+        "title": "Trezor Model One(white)",
+        "image": "/pictures/T1white.png",
+        "hardware": true,
+        "accessories": false,
+        "rating": 4,
+        "description": "The Trezor Model One is the most secure hardware wallet choice for everyone, whether you're new to Bitcoin or already an expert.",
+        "onsale": 58.5
+      },
+      {
+        "id": 3,
+        "price": 6,
+        "title": "Extended USB-C cable",
+        "image": "/pictures/usb_c.jpg",
+        "hardware": false,
+        "accessories": true,
+        "rating": 3,
+        "description": "Extra long Type-A to Type-C cable for convenient connection of Trezor to a computer. 1.8 m. 70.8 inch.",
+        "onsale": 5
+      },
+      {
+        "id": 4,
+        "price": 130.8,
+        "title": "Cryptosteel Cassette",
+        "image": "/pictures/cs_interactive.png",
+        "hardware": false,
+        "accessories": true,
+        "rating": 2,
+        "description": "The Cryptosteel Cassette is designed to securely store recovery seeds and other alphanumeric data up to 96 characters long. It's the perfect pocket-sized stainless steel offline backup tool.",
+        "onsale": 130.8
+      },
+      {
+        "id": 5,
+        "price": 16.8,
+        "title": "Silicone case for Trezor Model T",
+        "image": "/pictures/case_T_front_dark_blue_empty.png",
+        "hardware": false,
+        "accessories": true,
+        "rating": 2,
+        "description": "Personalize and protect your Trezor Model T hardware wallet with this stylish black silicone case cover.",
+        "onsale": 14.2
+      },
+      {
+        "id": 6,
+        "price": 13.2,
+        "title": "InCharge Ultra Portable Cable USB-C",
+        "image": "/pictures/incharge_usb_c.jpg",
+        "hardware": false,
+        "accessories": true,
+        "rating": 5,
+        "description": "Small, tangle-free charging/sync cable. Measures only 1.5 inches/3,8 cm and snaps onto your keyring with a strong magnet. Take it with you and connect your Trezor anywhere.",
+        "onsale": 13.2
+      },
+      {
+        "id": 7,
+        "price": 3.48,
+        "title": "Premium Adjustable Trezor Lanyard",
+        "image": "/pictures/lanyard-09.png",
+        "hardware": false,
+        "accessories": true,
+        "rating": 1,
+        "description": "Hang on to your bitcoin wallet wherever you go, with this premium adjustable Traffic Green lanyard for the Trezor Model One hardware wallet and Trezor Model T silicone case.",
+        "onsale": 3.48
+      },
+      {
+        "id": 8,
+        "price": 157.3,
+        "title": "Ledger Nano X",
+        "image": "/pictures/ledger-nano-x.png",
+        "hardware": true,
+        "accessories": false,
+        "rating": 4,
+        "description": "The next level hardware wallet. Buy & Securely manage your crypto in one single-app, anywhere you go. Become the only one in charge of your assets.",
+        "onsale": 157.3
+      },
+      {
+        "id": 9,
+        "price": 78.5,
+        "title": "Ledger Nano S",
+        "image": "/pictures/lns-black.png",
+        "hardware": true,
+        "accessories": false,
+        "rating": 3,
+        "description": "The original hardware wallet. Easily start your crypto journey: buy crypto, secure your assets and manage them in one single-app.",
+        "onsale": 78.5
+      },
+      {
+        "id": 10,
+        "price": 19,
+        "title": "Ledger OTG Kit",
+        "image": "/pictures/OTGkit.png",
+        "hardware": false,
+        "accessories": true,
+        "rating": 5,
+        "description": "All the cables and adapters you need to connect your hardware wallet to your Android phone or laptop.",
+        "onsale": 19
+      }
+    ],
+    "blogs": [
+      {
+        "id": 1,
+        "subject": "Crypto",
+        "title": "Bitcoin surpasses $50,000 for first time ever as major companies jump into crypto",
+        "image": "/pictures/bitcoin-mc.jpg",
+        "author": "Yoni"
+      },
+      {
+        "id": 2,
+        "subject": "Crypto",
+        "title": "Bitcoin breaks $50,000 for the first time as record-shattering 2021 rally extends to 74% amid Wall Street adoption",
+        "image": "/pictures/btcsign.jpg",
+        "author": "Yoni"
+      },
+      {
+        "id": 3,
+        "subject": "Crypto",
+        "title": "Don’t see a bubble in bitcoin prices: Bitfinex's Paolo Ardoino",
+        "image": "/pictures/ardoino.jpg",
+        "author": "Yoni"
+      },
+      {
+        "id": 4,
+        "subject": "Crypto",
+        "title": "Almost 200 crypto firms applied to register in the UK over the last year as global interest in bitcoin boomed",
+        "image": "/pictures/coins.jpg",
+        "author": "Yoni"
+      },
+      {
+        "id": 5,
+        "subject": "Crypto",
+        "title": "Cardano Price Analysis: ADA struggles to reach new all-time highs as overhead pressure intensifies",
+        "image": "/pictures/cardano.png",
+        "author": "Yoni"
+      },
+      {
+        "id": 6,
+        "subject": "Crypto",
+        "title": "Cardano Market Cap Has Doubled to $28 Billion in 2 Weeks",
+        "image": "/pictures/CardanoCoin.jpg",
+        "author": "Yoni"
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "name": "Leanne Graham",
+        "username": "Bret",
+        "email": "Sincere@april.biz",
+        "address": {
+          "street": "Kulas Light",
+          "suite": "Apt. 556",
+          "city": "Gwenborough",
+          "zipcode": "92998-3874",
+          "geo": {
+            "lat": "-37.3159",
+            "lng": "81.1496"
+          }
+        },
+        "phone": "1-770-736-8031 x56442",
+        "website": "hildegard.org",
+        "company": {
+          "name": "Romaguera-Crona",
+          "catchPhrase": "Multi-layered client-server neural-net",
+          "bs": "harness real-time e-markets"
+        },
+        "role":"User",
+        "activity": "Active"
+      },
+      {
+        "id": 2,
+        "name": "Ervin Howell",
+        "username": "Antonette",
+        "email": "Shanna@melissa.tv",
+        "address": {
+          "street": "Victor Plains",
+          "suite": "Suite 879",
+          "city": "Wisokyburgh",
+          "zipcode": "90566-7771",
+          "geo": {
+            "lat": "-43.9509",
+            "lng": "-34.4618"
+          }
+        },
+        "phone": "010-692-6593 x09125",
+        "website": "anastasia.net",
+        "company": {
+          "name": "Deckow-Crist",
+          "catchPhrase": "Proactive didactic contingency",
+          "bs": "synergize scalable supply-chains"
+        },
+        "role":"Admin",
+        "activity": "Not Active"
+      },
+      {
+        "id": 3,
+        "name": "Clementine Bauch",
+        "username": "Samantha",
+        "email": "Nathan@yesenia.net",
+        "address": {
+          "street": "Douglas Extension",
+          "suite": "Suite 847",
+          "city": "McKenziehaven",
+          "zipcode": "59590-4157",
+          "geo": {
+            "lat": "-68.6102",
+            "lng": "-47.0653"
+          }
+        },
+        "phone": "1-463-123-4447",
+        "website": "ramiro.info",
+        "company": {
+          "name": "Romaguera-Jacobson",
+          "catchPhrase": "Face to face bifurcated interface",
+          "bs": "e-enable strategic applications"
+        },
+        "role":"User",
+        "activity": "Active"
+      },
+      {
+        "id": 4,
+        "name": "Patricia Lebsack",
+        "username": "Karianne",
+        "email": "Julianne.OConner@kory.org",
+        "address": {
+          "street": "Hoeger Mall",
+          "suite": "Apt. 692",
+          "city": "South Elvis",
+          "zipcode": "53919-4257",
+          "geo": {
+            "lat": "29.4572",
+            "lng": "-164.2990"
+          }
+        },
+        "phone": "493-170-9623 x156",
+        "website": "kale.biz",
+        "company": {
+          "name": "Robel-Corkery",
+          "catchPhrase": "Multi-tiered zero tolerance productivity",
+          "bs": "transition cutting-edge web services"
+        },
+        "role":"User",
+        "activity": "Active"
+      },
+      {
+        "id": 5,
+        "name": "Chelsey Dietrich",
+        "username": "Kamren",
+        "email": "Lucio_Hettinger@annie.ca",
+        "address": {
+          "street": "Skiles Walks",
+          "suite": "Suite 351",
+          "city": "Roscoeview",
+          "zipcode": "33263",
+          "geo": {
+            "lat": "-31.8129",
+            "lng": "62.5342"
+          }
+        },
+        "phone": "(254)954-1289",
+        "website": "demarco.info",
+        "company": {
+          "name": "Keebler LLC",
+          "catchPhrase": "User-centric fault-tolerant solution",
+          "bs": "revolutionize end-to-end systems"
+        },
+        "role":"User",
+        "activity": "Not Active"
+      },
+      {
+        "id": 6,
+        "name": "Mrs. Dennis Schulist",
+        "username": "Leopoldo_Corkery",
+        "email": "Karley_Dach@jasper.info",
+        "address": {
+          "street": "Norberto Crossing",
+          "suite": "Apt. 950",
+          "city": "South Christy",
+          "zipcode": "23505-1337",
+          "geo": {
+            "lat": "-71.4197",
+            "lng": "71.7478"
+          }
+        },
+        "phone": "1-477-935-8478 x6430",
+        "website": "ola.org",
+        "company": {
+          "name": "Considine-Lockman",
+          "catchPhrase": "Synchronised bottom-line interface",
+          "bs": "e-enable innovative applications"
+        },
+        "role":"User",
+        "activity": "Active"
+      },
+      {
+        "id": 7,
+        "name": "Kurtis Weissnat",
+        "username": "Elwyn.Skiles",
+        "email": "Telly.Hoeger@billy.biz",
+        "address": {
+          "street": "Rex Trail",
+          "suite": "Suite 280",
+          "city": "Howemouth",
+          "zipcode": "58804-1099",
+          "geo": {
+            "lat": "24.8918",
+            "lng": "21.8984"
+          }
+        },
+        "phone": "210.067.6132",
+        "website": "elvis.io",
+        "company": {
+          "name": "Johns Group",
+          "catchPhrase": "Configurable multimedia task-force",
+          "bs": "generate enterprise e-tailers"
+        },
+        "role":"User",
+        "activity": "Active"
+      },
+      {
+        "id": 8,
+        "name": "Nicholas Runolfsdottir V",
+        "username": "Maxime_Nienow",
+        "email": "Sherwood@rosamond.me",
+        "address": {
+          "street": "Ellsworth Summit",
+          "suite": "Suite 729",
+          "city": "Aliyaview",
+          "zipcode": "45169",
+          "geo": {
+            "lat": "-14.3990",
+            "lng": "-120.7677"
+          }
+        },
+        "phone": "586.493.6943 x140",
+        "website": "jacynthe.com",
+        "company": {
+          "name": "Abernathy Group",
+          "catchPhrase": "Implemented secondary concept",
+          "bs": "e-enable extensible e-tailers"
+        },
+        "role":"User",
+        "activity": "Active"
+      },
+      {
+        "id": 9,
+        "name": "Glenna Reichert",
+        "username": "Delphine",
+        "email": "Chaim_McDermott@dana.io",
+        "address": {
+          "street": "Dayna Park",
+          "suite": "Suite 449",
+          "city": "Bartholomebury",
+          "zipcode": "76495-3109",
+          "geo": {
+            "lat": "24.6463",
+            "lng": "-168.8889"
+          }
+        },
+        "phone": "(775)976-6794 x41206",
+        "website": "conrad.com",
+        "company": {
+          "name": "Yost and Sons",
+          "catchPhrase": "Switchable contextually-based project",
+          "bs": "aggregate real-time technologies"
+        },
+        "role":"User",
+        "activity": "Active"
+      },
+      {
+        "id": 10,
+        "name": "Clementina DuBuque",
+        "username": "Moriah.Stanton",
+        "email": "Rey.Padberg@karina.biz",
+        "address": {
+          "street": "Kattie Turnpike",
+          "suite": "Suite 198",
+          "city": "Lebsackbury",
+          "zipcode": "31428-2261",
+          "geo": {
+            "lat": "-38.2386",
+            "lng": "57.2232"
+          }
+        },
+        "phone": "024-648-3804",
+        "website": "ambrose.net",
+        "company": {
+          "name": "Hoeger LLC",
+          "catchPhrase": "Centralized empowering task-force",
+          "bs": "target end-to-end models"
+        },
+        "role":"User",
+        "activity": "Active"
+      }
+    ],
+    "posts": [
+      {
+        "userId": 1,
+        "blogId": 1,
+        "id": 1,
+        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+      },
+      {
+        "userId": 2,
+        "blogId": 1,
+        "id": 2,
+        "title": "qui est esse",
+        "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+      },
+      {
+        "userId": 3,
+        "blogId": 2,
+        "id": 3,
+        "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+        "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+      },
+      {
+        "userId": 4,
+        "blogId": 2,
+        "id": 4,
+        "title": "eum et est occaecati",
+        "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
+      },
+      {
+        "userId": 5,
+        "blogId": 3,
+        "id": 5,
+        "title": "nesciunt quas odio",
+        "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
+      },
+      {
+        "userId": 6,
+        "blogId": 3,
+        "id": 6,
+        "title": "dolorem eum magni eos aperiam quia",
+        "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      },
+      {
+        "userId": 7,
+        "blogId": 4,
+        "id": 7,
+        "title": "magnam facilis autem",
+        "body": "dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas"
+      },
+      {
+        "userId": 8,
+        "blogId": 4,
+        "id": 8,
+        "title": "dolorem dolore est ipsam",
+        "body": "dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae"
+      },
+      {
+        "userId": 9,
+        "blogId": 5,
+        "id": 9,
+        "title": "nesciunt iure omnis dolorem tempora et accusantium",
+        "body": "consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas"
+      },
+      {
+        "userId": 10,
+        "blogId": 6,
+        "id": 10,
+        "title": "optio molestias id quia eum",
+        "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
+      }
+    ]
+  }

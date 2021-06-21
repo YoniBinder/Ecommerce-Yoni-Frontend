@@ -1,0 +1,41 @@
+[
+  {
+      "id":0,
+      "Subject":"Crypto",
+      "Title":"Bitcoin surpasses $50,000 for first time ever as major companies jump into crypto",
+      "Image":"/pictures/bitcoin-mc.jpg",
+      "Author":"Yoni"
+    },
+    {
+      "id":1,
+      "Subject":"Crypto",
+      "Title":"Bitcoin breaks $50,000 for the first time as record-shattering 2021 rally extends to 74% amid Wall Street adoption",
+      "Image":"/pictures/btcsign.jpg",
+      "Author":"Yoni"
+    },{
+      "id":2,
+      "Subject":"Crypto",
+      "Title":"Don’t see a bubble in bitcoin prices: Bitfinex's Paolo Ardoino",
+      "Image":"/pictures/ardoino.jpg",
+      "Author":"Yoni"
+    },{
+      "id":3,
+      "Subject":"Crypto",
+      "Title":"Almost 200 crypto firms applied to register in the UK over the last year as global interest in bitcoin boomed",
+      "Image":"/pictures/coins.jpg",
+      "Author":"Yoni"
+    },{
+      "id":4,
+      "Subject":"Crypto",
+      "Title":"Cardano Price Analysis: ADA struggles to reach new all-time highs as overhead pressure intensifies",
+      "Image":"/pictures/cardano.png",
+      "Author":"Yoni"
+    },
+    {
+      "id":5,
+      "Subject":"Crypto",
+      "Title":"Cardano Market Cap Has Doubled to $28 Billion in 2 Weeks",
+      "Image":"/pictures/CardanoCoin.jpg",
+      "Author":"Yoni"
+    }
+]

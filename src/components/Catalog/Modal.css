@@ -1,0 +1,11 @@
+.bigPic{
+    height:200px;
+    width:200px;
+}
+
+#zoomIn{
+    border:1px solid grey;
+    border-radius: 5px;
+    padding:10px;
+    margin-top: 4px;
+}

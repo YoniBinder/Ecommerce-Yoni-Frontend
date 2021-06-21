@@ -1,0 +1,19 @@
+.contactImg{
+width: 350px;
+height: 350px;
+border:grey 2px solid;
+margin:0 auto;
+border-radius: 15px;
+}
+
+.leaflet-container { 
+   height: 400px;
+   width: 80%;
+   margin: 0 auto;
+}
+
+@media only screen and (max-width: 720px) {
+    img { 
+       display:none;
+    }
+  }

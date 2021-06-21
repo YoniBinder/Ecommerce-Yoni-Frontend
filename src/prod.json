@@ -1,0 +1,123 @@
+[
+  {
+      "id":0,
+      "Price":190.8,
+      "Title":"Trezor Model T",
+      "Image":"/pictures/T2.jpg",
+      "Hardware":true,
+      "Accessories":false,
+      "Rating":4,
+      "Description":"The Trezor Model T is an advanced cryptocurrency hardware wallet. Store Bitcoin, passwords, tokens and other keys with confidence. Invented for your digital independence.",
+      "Onsale":190.8
+    },
+  {
+    "id":1,
+    "Price":58.5,
+    "Title":"Trezor Model One",
+    "Image":"/pictures/T1.png",
+    "Hardware":true,
+    "Accessories":false,
+    "Rating":4,
+    "Description":"The Trezor Model One is the most secure hardware wallet choice for everyone, whether you're new to Bitcoin or already an expert.",
+    "Onsale":58.5
+  },
+  {
+    "id":2,
+    "Price":58.5,
+    "Title":"Trezor Model One(white)",
+    "Image":"/pictures/T1white.png",
+    "Hardware":true,
+    "Accessories":false,
+    "Rating":4,
+    "Description":"The Trezor Model One is the most secure hardware wallet choice for everyone, whether you're new to Bitcoin or already an expert.",
+    "Onsale":58.5
+  },
+  {
+    "id":3,
+    "Price":6,
+    "Title":"Extended USB-C cable",
+    "Image":"/pictures/usb_c.jpg",
+    "Hardware":false,
+    "Accessories":true,
+    "Rating":3,
+    "Description":"Extra long Type-A to Type-C cable for convenient connection of Trezor to a computer. 1.8 m. 70.8 inch.",
+    "Onsale":6
+  },
+  {
+    "id":4,
+    "Price":130.8,
+    "Title":"Cryptosteel Cassette",
+    "Image":"/pictures/cs_interactive.png",
+    "Hardware":false,
+    "Accessories":true,
+    "Rating":2,
+    "Description":"The Cryptosteel Cassette is designed to securely store recovery seeds and other alphanumeric data up to 96 characters long. It's the perfect pocket-sized stainless steel offline backup tool.",
+    "Onsale":130.8
+    },
+    {
+      "id":5,
+      "Price":16.8,
+      "Title":"Silicone case for Trezor Model T",
+      "Image":"/pictures/case_T_front_dark_blue_empty.png",
+      "Hardware":false,
+      "Accessories":true,
+      "Rating":2,
+      "Description":"Personalize and protect your Trezor Model T hardware wallet with this stylish black silicone case cover.",
+      "Onsale":16.8
+    },
+    {
+      "id":6,
+      "Price":13.2,
+      "Title":"InCharge Ultra Portable Cable USB-C",
+      "Image":"/pictures/incharge_usb_c.jpg",
+      "Hardware":false,
+      "Accessories":true,
+      "Rating":5,
+      "Description":"Small, tangle-free charging/sync cable. Measures only 1.5 inches/3,8 cm and snaps onto your keyring with a strong magnet. Take it with you and connect your Trezor anywhere.",
+      "Onsale":13.2
+    },
+    {
+      "id":7,
+      "Price":3.48,
+      "Title":"Premium Adjustable Trezor Lanyard",
+      "Image":"/pictures/lanyard-09.png",
+      "Hardware":false,
+      "Accessories":true,
+      "Rating":1,
+      "Description":"Hang on to your bitcoin wallet wherever you go, with this premium adjustable Traffic Green lanyard for the Trezor Model One hardware wallet and Trezor Model T silicone case.",
+      "Onsale":3.48
+    },
+    {
+      "id":8,
+      "Price":157.3,
+      "Title":"Ledger Nano X",
+      "Image":"/pictures/ledger-nano-x.png",
+      "Hardware":true,
+      "Accessories":false,
+      "Rating":4,
+      "Description":"The next level hardware wallet. Buy & Securely manage your crypto in one single-app, anywhere you go. Become the only one in charge of your assets.",
+      "Onsale":157.3
+    },
+    {
+      "id":9,
+      "Price":78.5,
+      "Title":"Ledger Nano S",
+      "Image":"/pictures/lns-black.png",
+      "Hardware":true,
+      "Accessories":false,
+      "Rating":3,
+      "Description":"The original hardware wallet. Easily start your crypto journey: buy crypto, secure your assets and manage them in one single-app.",
+      "Onsale":78.5
+    },
+    {
+      "id":10,
+      "Price":19,
+      "Title":"Ledger OTG Kit",
+      "Image":"/pictures/OTGkit.png",
+      "Hardware":false,
+      "Accessories":true,
+      "Rating":5,
+      "Description":"All the cables and adapters you need to connect your hardware wallet to your Android phone or laptop.",
+      "Onsale":19
+    }
+]

@@ -1,0 +1,10 @@
+#title{
+    color:red;
+    text-align: center;
+}
+
+#notFound{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

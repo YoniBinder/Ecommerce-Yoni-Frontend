@@ -1,20 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import "./Home.css"
 import {Link} from "react-router-dom";
 import Carousela from "./Carousela"
 
 
-export default class Home extends Component {
-    render() {
+export default function Home() {
+ 
         return (
             <div>
-            <div className="container-fluid shopping bg-warning">
+            <div className="container-fluid shopping bg-warning text-center">
                 <br/>
-                <h1 className="text-center banner">Crypto Hardware wallets and Accessories</h1><br/>
-                <h2 className="text-center banner">Because like in real life, your money must be secured</h2><br/>
-                <h2 className="text-center banner font-weight-bold">Order now and don't be concerned!</h2>
+                <h1 className="banner">Crypto Hardware wallets and Accessories</h1><br/>
+                <h2 className="banner">Because like in real life, your money must be secured</h2><br/>
+                <h2 className="banner font-weight-bold">Order now and don't be concerned!</h2>
                 <br/>
                 <Link to="/catalog" className="btn btn-visit d-block mx-auto" style={{width:"200px",color:"orange",backgroundColor:"black", fontSize:"20px"}}>Visit Shop</Link>
+                <div id="comment">This website developed by MERN technology stack</div>
             </div>
             <h3 className="pl-5 banner bg-light pt-3 pb-3">Best sellers</h3>
             <div className="container-fluid bg-light d-flex justify-content-center"> 
@@ -31,5 +32,5 @@ export default class Home extends Component {
 
             </div>
         )
-    }
+    
 }

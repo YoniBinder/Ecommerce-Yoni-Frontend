@@ -40,10 +40,10 @@ export default function Cards(props) {
         return (
             <div className="container-fluid border mt-3" style={{borderRadius:"30px"}}>
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-4">
                         <img className="cardImg" src={result && result.image} alt="..."/>
                     </div>
-                    <div className="col-5">
+                    <div className="col-4">
                     <br/><br/>
                     <div className="fw-bold">{result && result.title}</div> 
                     <div>{result && result.description}</div>   

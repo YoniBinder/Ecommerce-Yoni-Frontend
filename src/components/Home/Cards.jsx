@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 export default function Cards(props) {
 
     return (
-    <div className="ml-3 card" >
+    <div className="ml-3 cards" >
         <Link to={`/product/${props.title}`}>
             <div style={{position:"relative",width:"200px",height:"320px"}} className="text-dark text-center  border border-dark rounded p-3">  
                 <img src={props.image} alt="..." className="catalog alignCenter cursor"/>

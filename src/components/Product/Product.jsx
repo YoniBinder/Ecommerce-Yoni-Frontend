@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import './Product.css'
-import {Link} from "react-router-dom"
+import {Link,useHistory} from "react-router-dom"
 import T1 from '../../pictures/T1.png'
 import T1_scale2 from '../../pictures/T1_scale2.jpg'
 import T1_scale3 from '../../pictures/T1_scale3.jpg'
@@ -11,7 +11,7 @@ import axios from 'axios'
 let arrProd = JSON.parse(localStorage.getItem('products')) || [];
 
 export default function Product (props){
-
+   const history=useHistory()
    const [products,setProducts]=useState([])
    const [item,setItem]=useState(1)
    const [message,setMessage]=useState()
@@ -137,7 +137,7 @@ export default function Product (props){
                         <div className="modal-footer">
                             <button type="button" className="btn btn-primary" style={{color:"black"}} data-bs-dismiss="modal">Close</button>
                             <button onClick={()=>
-                              window.location.href='/cart'
+                              history.push('/cart')
                            } data-bs-dismiss="modal" type="button" style={{color:"black"}} className="btn btn-warning" >Go to cart</button>
                         </div>
                         </div>

@@ -43,7 +43,7 @@ ReactDOM.render(
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <Route path="/product/:title" component={Product}/>
-          <Route exact path="/checkout" component={Checkout}/>
+          <Route exact path="/checkout/:coupon/:payment" component={Checkout}/>
           <Route exact path="/success/:ref" component={Success}/>
           <Route exact path="/aboutUs" component={AboutUs}/>
           <Route exact path="/blog" component={Blog}/>

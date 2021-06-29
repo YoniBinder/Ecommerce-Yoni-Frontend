@@ -19,12 +19,20 @@ export default function Account(props) {
         if(currentUser){
             let arrOrder = []
             for (let i=0;i<orders.length;i++) {
-                if(orders[i].userID===currentUser._Id)
-                    arrOrder.push(orders[i])       
+
+                if(orders[i].userId===currentUser._id){
+                    
+                    arrOrder.push(orders[i])   
+                }
+                        
             }
             setOrder(arrOrder)
     }
     },[currentUser,orders])
+
+
+    
+
 
     function submitAdd(e){
         var formData = new FormData();
@@ -145,10 +153,12 @@ export default function Account(props) {
             </div>
             <div>
             </div>
-            <div className="container d-flex ">
+            <div className="d-flex flex-row justify-content-start flex-wrap">
             {order && order.map((obj)=>
-            <div key={obj.id} className="container border border-dark" style={{width:"400px"}}>
-            <div className="mb-2"><span style={{color:"blue",fontWeight:"bold"}}>You have purchased:</span> {obj.products.map((item)=><div key={item.title}>{item.item} units of {item.title} </div>)}</div>
+            <div key={obj.id} className="border border-dark order" style={{margin:"10px",padding:"10px",width:'300px'}}>
+            
+            <span style={{color:"blue",fontWeight:"bold"}}>You have purchased:</span>
+             {obj.products.map((item)=><div key={item.title}>{item.item} units of {item.title} </div>)}
             <p><span style={{color:"blue",fontWeight:"bold"}}>Total price: </span>${obj.total}</p>
             <p><span style={{color:"blue",fontWeight:"bold"}}>Order number: </span>{obj.reference}</p>
             <p><span style={{color:"blue",fontWeight:"bold"}}>Status: </span>{obj.status}</p>    

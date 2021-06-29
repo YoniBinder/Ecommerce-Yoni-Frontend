@@ -1,50 +1,64 @@
-import React, { Component } from 'react'
+import React, {useState,useEffect } from 'react'
 import './Cart.css'
 import Item from './Item'
 import {Link} from "react-router-dom"
 import CartEmpty from '../../pictures/cartEmpty.png'
 import axios from 'axios'
-export default class Cart extends Component {
-    constructor(){
-        super()
-        this.state={
-            arrProd:JSON.parse(localStorage.getItem('products')) || [],
-            country:"Israel",
-            myProducts:[],
-            coupon:false
-        }
-        this.myRef=React.createRef();
-    }
-    componentDidMount(){
+import {useAuth} from '../../context/AuthShopContext'
+
+let arrProd=JSON.parse(localStorage.getItem('products')) || []
+
+export default function Cart() {
+
+    const {currentUser}=useAuth()
+    
+    const [myProducts,setMyProducts]=useState([])
+    const [coupon,setCoupon]=useState(null)
+    const [couponValue,setCouponValue]=useState(null)
+    const [couponButton,setCouponButton]=useState(false)
+    const [payment,setPayment]=useState("cash")
+           
+       
+    useEffect(()=>{
         axios.get(`${process.env.REACT_APP_PROXY}/products`).then((response)=>{
-            this.setState({myProducts:response.data})
+            setMyProducts(response.data)
         })
+    })
+
+    function changePayment(e){
+        setPayment(e.target.value)
     }
-    changeCoupon(e){
-        this.setState({coupon:e.target.value})
+
+    function changeCoupon(e){
+        setCouponValue(e.target.value)
     }
-    codeCoupon(e){
+    
+    function codeCoupon(e){
         e.preventDefault()
         
-        if(this.state.coupon==="1234")
-            this.setState({coupon:true})
+        if(couponValue==="1234"){
+            setCouponButton(true)
+            setCoupon(true)
+        }
+           
         else
-            this.setState({coupon:false})
+            setCoupon(false)
     }
-    priceCalculation(){
+
+    function priceCalculation(){
         let totalsum=0;
-        for(let i=0;i<this.state.arrProd.length;i++)
-            for(let j=0;j<this.state.myProducts.length;j++)
-                if(this.state.arrProd[i].title===this.state.myProducts[j].title)
-                    totalsum+=this.state.myProducts[j].onsale*this.state.arrProd[i].item
+        for(let i=0;i<arrProd.length;i++)
+            for(let j=0;j<myProducts.length;j++)
+                if(arrProd[i].title===myProducts[j].title)
+                    totalsum+=myProducts[j].onsale*arrProd[i].item
     return totalsum
 
     }
   
-    render() {
-        return (
+
+     return (
             <div className="container-fluid">
-            {!this.state.arrProd.length ? (
+            {!arrProd.length ? (
                 <div className="container">
                     <br/>
                     <h1 className="text-center">No products have been added to cart</h1><br/>
@@ -55,7 +69,7 @@ export default class Cart extends Component {
                 <div className="row">
                 <div className="col-9">
                 {
-                    this.state.arrProd.map((card) =>
+                    arrProd.map((card) =>
                         <Item key={card.title} title={card.title} item={card.item}/>
                     )
                 }
@@ -64,53 +78,56 @@ export default class Cart extends Component {
                 <div className="col-3">
                     <br/>
                     <div id="checkout" className="container-fluid">
-                    <br/><p style={{fontSize:"20px",fontWeight:"bold"}}>How you'll pay</p>
-                    <form className="btn-group-vertical">
-                    <p className="radioP">
-                        <input type="radio" name="name" id="r1" required defaultChecked/>
-                        <label htmlFor="r1">
-                            <span className="radioButtonGraph"></span>
-                            <span style={{color:'green',fontWeight:'bold'}}>CASH $</span>
-                            
-                        </label>
+                    <br/>
+                    <p style={{fontSize:"20px",fontWeight:"bold"}}>How you'll pay</p>
+                    <form className="btn-group-vertical"  onChange={(e)=>changePayment(e)}>
+                        <p className="radioP">
+                            <input type="radio" name="payment" id="r1" value="cash" required defaultChecked/>
+                            <label htmlFor="r1">
+                                <span className="radioButtonGraph"></span>
+                                <span >Cash <i style={{color:'green'}} className="fas fa-money-bill-wave"></i></span>
+                                
+                            </label>
                         </p>
-                    
                        
                         <p className="radioP">
-                        <input type="radio" name="name" id="r2" required/>
-                        <label htmlFor="r2">
-                            <span className="radioButtonGraph"></span>
-                            <i className="fab fa-cc-paypal" style={{color:"blue"}}></i>
-                            
-                        </label>
+                            <input type="radio" name="payment" id="r2" value="paypal" required/>
+                            <label htmlFor="r2">
+                                <span className="radioButtonGraph"></span>
+                                Paypal <i className="fab fa-cc-paypal" style={{color:"blue"}}></i>
+                                
+                            </label>
                         </p>
                         <p className="radioP">
-                        <input type="radio" name="name" id="r3" disabled />
-                        <label htmlFor="r3">
-                            <span className="radioButtonGraph"></span>
-                            <i className="fab fa-cc-mastercard" style={{color:"red"}}></i>
-                            <i className="fab fa-cc-amex" style={{color:"blue"}}></i>
-                            <i className="fab fa-cc-visa" style={{color:"grey"}}></i>
-                        </label>
+                            <input type="radio" name="payment" id="r3" disabled />
+                            <label htmlFor="r3">
+                                <span className="radioButtonGraph"></span>
+                                Credit Card
+                                <i className="fab fa-cc-mastercard" style={{color:"red"}}></i>
+                                <i className="fab fa-cc-amex" style={{color:"blue"}}></i>
+                                <i className="fab fa-cc-visa" style={{color:"grey"}}></i>
+                            </label>
                         </p>
-                        <p className="radioP">
-                        <input type="radio" name="name" id="r4" disabled/>
-                        <label htmlFor="r4">
-                            <span className="radioButtonGraph"></span>
-                            <i className="fab fa-bitcoin" style={{color:"orange"}}></i>
-                        </label>
+                            <p className="radioP">
+                            <input type="radio" name="payment" id="r4" disabled/>
+                            <label htmlFor="r4">
+                                <span className="radioButtonGraph"></span>
+                                Bitcoin
+                                <i className="fab fa-bitcoin" style={{color:"orange"}}></i>
+                            </label>
                         </p>
                     </form>
-                    <p>Item(s) total: <span className="text-end">${this.priceCalculation()} </span></p>
+                    <p>Item(s) total: <span className="text-end">${priceCalculation()} </span></p>
                     <hr/>
-                    <p style={{fontWeight:"bold"}}>Total ({this.state.arrProd.length} items) <span className="text-end">${this.priceCalculation()}</span></p>
-                    <Link id="checkoutBtn" className="btn d-block mx-auto" to='/checkout/' style={{color:"white",padding:"15px 0px"}}>Proceed to checkout</Link>
+                    <p style={{fontWeight:"bold"}}>Total ({arrProd.length} items) <span className="text-end">${priceCalculation()}</span></p>
+                    {currentUser && <Link id="checkoutBtn" className="btn d-block mx-auto" to={`/checkout/${coupon}/${payment}`} style={{color:"white",padding:"15px 0px"}}>Proceed to checkout</Link>}
+                    {!currentUser && <Link id="checkoutBtn" className="btn d-block mx-auto" to={`/login`} style={{color:"white",padding:"15px 0px"}}>Login before checkout</Link>}
                     <br/>
-                    <input onChange={(e)=>this.changeCoupon(e)} ref={this.textInput} type="text" placeholder="Coupon Code" style={{width:"120px"}}/>
+                    <input  onChange={(e)=>changeCoupon(e)} type="text" placeholder="Coupon Code" style={{width:"120px"}}/>
                     <i className="fas fa-tag"></i>
-                    {this.state.coupon && <span style={{color:'green'}}>  10$ discount!</span>}
-                    {!this.state.coupon && <span style={{color:'red'}}>  Wrong code</span>}
-                    <button disabled={this.state.coupon} onClick={(e)=>this.codeCoupon(e)} id="couponBtn" className="d-block mx-auto">Activate Coupon</button>
+                    {coupon && <span style={{color:'green'}}>  10% discount!</span>}
+                    {coupon===false && <span style={{color:'red'}}>  Wrong code</span>}
+                    <button disabled={couponButton} onClick={(e)=>codeCoupon(e)} id="couponBtn" className="d-block mx-auto">Activate Coupon</button>
                     <br/>
                 </div>
             </div>
@@ -121,4 +138,4 @@ export default class Cart extends Component {
         </div>
         )
     }
-}
+

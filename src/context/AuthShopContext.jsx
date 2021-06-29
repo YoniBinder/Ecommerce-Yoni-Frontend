@@ -29,7 +29,7 @@ export function AuthShopProvider({children}) {
         let Authorization = await `bearer ${JSON.parse(localStorage.getItem("token"))}`
         axios.get(`${process.env.REACT_APP_PROXY}/current`, {headers: {Authorization}}).then((response)=>{ 
             setCurrentUser(response.data)
-        return Auth.login(()=>history.push("/home"))
+        return Auth.login(()=>history.push("/"))
         })
     }
 

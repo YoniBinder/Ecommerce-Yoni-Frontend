@@ -18,7 +18,7 @@ export default function Register() {
     if(usernameRef.current.value.length===0)
         return setError('Please enter username')
     if(!email.test(emailRef.current.value))
-        return setError('Please enter correct email address')
+        return setError('Please enter valid email address')
     if(passwordRef.current.value.length<6)
         return setError('Password should be more than 6 letters')
     if(passwordRef.current.value!==passConfirmRef.current.value)

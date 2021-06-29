@@ -48,7 +48,7 @@ export default function Cards(props) {
                     <div className="fw-bold">{result && result.title}</div> 
                     <div>{result && result.description}</div>   
                     <br/> 
-                    <div id={result && result.id} className="cursor fw-bold text-center" onClick={(e)=>RemoveProd(e)}>Remove</div>
+                    <div id={result && result.id} className="cursor fw-bold remove" onClick={(e)=>RemoveProd(e)}>Remove</div>
                     </div>
                     <div className="col-4">
                         <br/><br/><br/>

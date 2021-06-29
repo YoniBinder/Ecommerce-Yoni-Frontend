@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./Checkout.css";
-import Paypal from "./PayPal";
-// import { db } from "../../firebase";
+import PayWithPaypal from "./PayWithPayPal";
 import axios from 'axios'
+
 let arrProd = JSON.parse(localStorage.getItem("products")) || [];
 let Authorization = `bearer ${JSON.parse(localStorage.getItem("token"))}`
 
@@ -11,23 +11,20 @@ export default class Checkout extends Component {
     super(props);
     this.state = {
       shippingOption: 0,
-      messageName: null,
-      messageStreet: null,
-      messageCity: null,
-      messageHouseNum: null,
-      messageEmail: null,
       myProducts: [],
-      currentUser:null,
+      currentUser:false,
+      total:0,
+      paypalComplete:false
     };
     this.emailRef = React.createRef();
     this.shipmentRef = React.createRef();
-    this.streetAddRef = React.createRef();
+    this.streetNameRef = React.createRef();
     this.fullNameRef = React.createRef();
     this.houseNumberRef = React.createRef();
     this.cityNameRef = React.createRef();
-    this.emailRef = React.createRef();
+    this.paymentRef = React.createRef();
+    
   }
-
   componentDidMount() {
     axios.get(`${process.env.REACT_APP_PROXY}/products`).then((response)=>{
       this.setState({myProducts:response.data})
@@ -38,10 +35,52 @@ export default class Checkout extends Component {
   })
  
   }
-  onChangeValue(event) {
-    this.setState({shippingOption: Number(event.target.value)});
+  onChangeValue(e){
+    switch(e.target.value) {
+      case 'Pickup':
+        this.setState({shippingOption:0})
+        break;
+      case 'RegularMailing':
+        this.setState({shippingOption:3})
+        break;
+      case 'RegisteredMailing':
+        this.setState({shippingOption:9})
+      break;
+      case 'Delivery':
+        this.setState({shippingOption:15})
+        break;
+      
+      default:
+        this.setState({shippingOption:0})
+    }
   }
-  priceCalculation() {
+  countryChange(e){
+    switch(e.target.value) {
+      case 'Israel':
+        this.setState({shippingOption:0})
+        break;
+      case 'China':
+        this.setState({shippingOption:30})
+        break;
+      case 'USA':
+        this.setState({shippingOption:30})
+      break;
+      case 'Spain':
+        this.setState({shippingOption:10})
+        break;
+      case 'Mexico':
+        this.setState({shippingOption:40})
+        break;
+      case 'Italy':
+        this.setState({shippingOption:10})
+        break;
+      default:
+        this.setState({shippingOption:0})
+    }
+  }
+
+ 
+  itemsSumCalculation() {
     let totalsum = 0;
     for (let i = 0; i < arrProd.length; i++)
       for (let j = 0; j < this.state.myProducts.length; j++)
@@ -49,88 +88,117 @@ export default class Checkout extends Component {
           totalsum += this.state.myProducts[j].onsale * arrProd[i].item;
     return totalsum;
   }
+  totalPrice(){
+ 
+    if(this.props.match.params.coupon===true)
+      return  this.itemsSumCalculation()*0.9+this.state.shippingOption
+    else
+      return this.itemsSumCalculation()+this.state.shippingOption
+    
+  }
+  setErrorPayment(input, message) {
+    input.className  = 'payment error';
+    input.innerText = message;
+  }
+
+
+  setErrorFor(input, message) {
+	const formControl = input.parentElement;
+	const small = formControl.querySelector('small');
+	formControl.className = 'formControl error';
+	small.innerText = message;
+}
+
+  setSuccessFor(input) {
+	const formControl = input.parentElement;
+	formControl.className = 'formControl success';
+}
+submitForm(e){
+  e.preventDefault()
+  
+  }
   
   placeOrder(e) {
     e.preventDefault()
-    let fullName = this.fullNameRef.current;
-    let houseNumber = this.houseNumberRef.current;
-    let cityName = this.cityNameRef.current;
-    let streetadd = this.streetAddRef.current;
-    let emailInput = this.emailRef.current;
+    let fullName = this.fullNameRef.current.value.trim();
+    let houseNumber = this.houseNumberRef.current.value.trim();
+    let city = this.cityNameRef.current.value.trim();
+    let street = this.streetNameRef.current.value.trim();
+    let email = this.emailRef.current.value.trim();
 
-    let houseNum = new RegExp("^[0-9]{1,3}$", "gm");
-    let name = new RegExp("^[A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+$", "gm");
-    let city = new RegExp("^[A-Z]{1}[a-z]+", "gm");
-    let street = new RegExp("^[A-Z]{1}[a-z]+", "gm");
-    let email = new RegExp('[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,64}','gm')
+    let houseNum = new RegExp("^[0-9]{1,4}$", "gm");
+   
 
     let flag1 = 0;
     let flag2 = 0;
     let flag3 = 0;
     let flag4 = 0;
-    let flag5 = 0;
+    
 
-    if (name.test(fullName.value)) {
-      fullName.style.border = "green 2px solid";
-      this.setState({ messageName: "" });
+    if (fullName==='') {
+      this.setErrorFor(this.fullNameRef.current, 'Name cannot be blank');
+      
+    } else {
+      this.setSuccessFor(this.fullNameRef.current);
       flag1 = 1;
-    } else {
-      fullName.style.border = "red 2px solid";
-      this.setState({ messageName: "The name should be as in your ID card" });
     }
-    if (email.test(emailInput.value)) {
-      emailInput.style.border = "green 2px solid";
-      this.setState({ messageEmail: "" });
-      flag5 = 1;
+
+
+    if (city==='') {
+      this.setErrorFor(this.cityNameRef.current, 'City cannot be blank');
+      
     } else {
-      emailInput.style.border = "red 2px solid";
-      this.setState({
-        messageEmail: "The email is not correct",
-      });
-    }
-    if (street.test(streetadd.value)) {
-      streetadd.style.border = "green 2px solid";
-      this.setState({ messageStreet: "" });
+      this.setSuccessFor(this.cityNameRef.current);
       flag2 = 1;
-    } else {
-      streetadd.style.border = "red 2px solid";
-      this.setState({
-        messageStreet: "The street name should be as in your ID",
-      });
     }
 
-    if (city.test(cityName.value)) {
-      cityName.style.border = "green 2px solid";
-      this.setState({ messageCity: "" });
+    if (street==='') {
+      this.setErrorFor(this.streetNameRef.current, 'Street cannot be blank');
+    } else {
+      this.setSuccessFor(this.streetNameRef.current);
       flag3 = 1;
-    } else {
-      cityName.style.border = "red 2px solid";
-      this.setState({ messageCity: "The city name should be as in your ID" });
-    }
-    if (houseNum.test(houseNumber.value)) {
-      houseNumber.style.border = "green 2px solid";
-      this.setState({ messageHouseNum: "" });
-      flag4 = 1;
-    } else {
-      houseNumber.style.border = "red 2px solid";
-      this.setState({
-        messageHouseNum: "The house number should contain up to 3 digits",
-      });
     }
 
-    if (flag1 === 1 && flag2 === 1 && flag3 === 1 && flag4 === 1 && flag5===1) {
+    if(houseNumber === '') {
+      this.setErrorFor(this.houseNumberRef.current, 'House number cannot be blank');
+    } else if (!houseNum.test(houseNumber)) {
+      this.setErrorFor(this.houseNumberRef.current, 'Not a valid house number');
+    } else {
+      this.setSuccessFor(this.houseNumberRef.current);
+      flag4 = 1;
+    }
+
+    if(this.props.match.params.payment==="paypal" && !this.state.paypalComplete){
+      this.setErrorPayment(this.paymentRef.current, 'Payment not completed');
+      return;
+    }
+
+      
+
+    if (flag1 === 1 && flag2 === 1 && flag3 === 1 && flag4 === 1) {
       axios.post(`${process.env.REACT_APP_PROXY}/orders`,{
 
         userId: this.state.currentUser._id,
         products: arrProd,
-        city: this.cityNameRef.current.value,
-        street: this.streetAddRef.current.value,
-        house_number: this.houseNumberRef.current.value,
-        total:this.priceCalculation()
+        city: city,
+        street: street,
+        house_number: houseNumber,
+        total:this.itemsSumCalculation()
       })
       .then(function (response) {
-        localStorage.setItem("products", JSON.stringify([]));
-        window.location.href = "/success/" + response.data.reference;
+        axios.post(`${process.env.REACT_APP_PROXY}/sendMailToClient`,{
+          to : email,
+          subject :'order registered',
+          orderNumber:response.data.reference
+          })
+          .then(response=> {
+              localStorage.setItem("products", JSON.stringify([]));
+              window.location.href = "/success/" + response.data.reference;
+            })
+          .catch(response=>{
+                console.log(response)
+            })
+        
       })
       .catch(function (error) {
         console.log(error);
@@ -138,7 +206,7 @@ export default class Checkout extends Component {
     }
    
   }
-
+  
   render() {
 
     return (
@@ -148,6 +216,8 @@ export default class Checkout extends Component {
           <div className="row">
             <div className="col-9">
               <br />
+
+              {/*shipping */}
               <h2 className="text-center ">Enter your shipping address</h2>
               
                 <div className="formChk">
@@ -155,63 +225,81 @@ export default class Checkout extends Component {
                   <br />
                   <select
                     className="form-select mb-3"
-                    style={{ width: "400px" }}
+                    style={{ width: "200px" }}
                     aria-label="Default select example"
+                    onChange={(e)=>this.countryChange(e)}
                   >
-                    <option>Israel</option>
-                    <option value="1">China</option>
-                    <option value="2">USA</option>
-                    <option value="3">Spain</option>
-                    <option value="4">Mexico</option>
-                    <option value="5">Italy</option>
+                    <option value="Israel">Israel</option>
+                    <option value="China">China</option>
+                    <option value="USA">USA</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Italy">Italy</option>
                   </select>
-                  <label className="lbl">Full Name *</label>
+
+                  {/*Full Details */}
+                  <div className="formControl">
+                  <label>Full Name *</label>
                   <br />
                   <input
                     type="text"
-                    className="inp"
                     ref={this.fullNameRef}
                   ></input>
-                  <br />
-                  {this.state.messageName && <div style={{color:"red"}}>{this.state.messageName}</div>}
-                  <label className="lbl">Email *</label>
+                  <i className="fas fa-check-circle"></i>
+                  <i className="fas fa-exclamation-circle"></i>
+                  <small>Error message</small>
+                  </div>
+                 
+                  <div className="formControl">
+                  <label>Email *</label>
                   <br />
                   <input
                     type="text"
-                    className="inp"
                     ref={this.emailRef}
+                    value={this.state.currentUser ? this.state.currentUser.email:""} 
+                    disabled
                   ></input>
-                  <br />
-                  {this.state.messageEmail && <div style={{color:"red"}}>{this.state.messageEmail}</div>}
-
-                  <label className="lbl">Street address *</label>
+                   <i className="fas fa-check-circle"></i>
+                  <i className="fas fa-exclamation-circle"></i>
+                  <small>Error message</small>
+                </div>
+             
+                <div className="formControl">
+                  <label>Street address *</label>
                   <br />
                   <input
                     type="text"
-                    className="inp"
-                    ref={this.streetAddRef}
+                    ref={this.streetNameRef}
                   ></input>
-                  <br />
-                  {this.state.messageStreet && <div style={{color:"red"}}>{this.state.messageStreet}</div>}
+                <i className="fas fa-check-circle"></i>
+                  <i className="fas fa-exclamation-circle"></i>
+                  <small>Error message</small>
+                  </div>
 
-                  <label className="lbl">House number *</label>
+                  <div className="formControl">
+                  <label>House number *</label>
                   <br />
                   <input
                     type="text"
-                    className="inp"
                     ref={this.houseNumberRef}
                   ></input>
-                  <br />
-                  {this.state.messageHouseNum && <div style={{color:"red"}}>{this.state.messageHouseNum}</div>}
-                  <label className="lbl">City *</label>
+                  <i className="fas fa-check-circle"></i>
+                  <i className="fas fa-exclamation-circle"></i>
+                  <small>Error message</small>
+                  </div>
+
+                  <div className="formControl">
+                  <label>City *</label>
                   <br />
                   <input
                     type="text"
-                    className="inp"
                     ref={this.cityNameRef}
                   ></input>
-                  <br />
-                  {this.state.messageCity && <div style={{color:"red"}}>{this.state.messageCity}</div>}
+                  <i className="fas fa-check-circle"></i>
+                  <i className="fas fa-exclamation-circle"></i>
+                  <small>Error message</small>
+                  </div>
+
 
                   <label className="lbl">Postal code (optional)</label>
                   <br />
@@ -222,15 +310,29 @@ export default class Checkout extends Component {
                   <textarea className="txtArea" cols="47" rows="5"></textarea>
                   <br />
                 </div>
+
+
+                {/* Payment */}
                 <h2 className="text-center ">Enter your payment details</h2>
                 <div className="text-center">
                   {" "}
                   The payment that was choosen is:
                 </div>
                 <br />
-
-                <Paypal />
-              
+          
+                {(this.props.match.params.payment==="paypal" && !this.state.paypalComplete) && 
+                <PayWithPaypal 
+                amount={this.totalPrice()} 
+                currency={"USD"} 
+                items={arrProd}
+                onSuccess={(details, data)=>details.status==="COMPLETE" && this.setState({paypalComplete:true})}
+                onError={(err)=>alert(err)}
+                />}
+                {(this.props.match.params.payment==="paypal" && this.state.paypalComplete) && 
+                <div className="text-center font-weight-bold text-success">Payment Confirmed!</div>}
+                
+                {this.props.match.params.payment==="cash" && <div className="text-center font-weight-bold" >Cash. Please prepare exact change</div>}
+                <br/><br/>
             </div>
             <div className="col-3">
               <div className="orderDetails">
@@ -278,53 +380,53 @@ export default class Checkout extends Component {
                     <input
                       type="radio"
                       name="name"
-                      value="0"
+                      value="Pickup"
                       id="r1"
                       required
                       defaultChecked
                     />
                     <label htmlFor="r1">
                       <span className="radioButtonGraph"></span>
-                      Pickup - free
+                      Pickup: free
                     </label>
                   </p>
                   <p className="radioP">
                     <input
                       type="radio"
                       name="name"
-                      value="3"
+                      value="RegularMailing"
                       id="r2"
                       required
                     />
                     <label htmlFor="r2">
                       <span className="radioButtonGraph"></span>
-                      Regular mailing - $3
+                      Regular mailing: $3
                     </label>
                   </p>
                   <p className="radioP">
                     <input
                       type="radio"
                       name="name"
-                      value="9"
+                      value="RegisteredMailing"
                       id="r3"
                       required
                     />
                     <label htmlFor="r3">
                       <span className="radioButtonGraph"></span>
-                      Registered mailing - $9
+                      Registered mailing: $9
                     </label>
                   </p>
                   <p className="radioP">
                     <input
                       type="radio"
                       name="name"
-                      value="15"
+                      value="Delivery"
                       id="r4"
                       required
                     />
                     <label htmlFor="r4">
                       <span className="radioButtonGraph"></span>
-                      Home delivery - $15
+                      Home delivery: $15
                     </label>
                   </p>
                 </div>
@@ -333,21 +435,22 @@ export default class Checkout extends Component {
                 <br />
                 <p>
                   Item(s) total:{" "}
-                  <span className="text-end">${this.priceCalculation()}</span>
+                  <span className="text-end">${this.itemsSumCalculation().toFixed(2)}</span>
                 </p>
                 <p>
                   Shipping:{" "}
                   <span className="text-end">${this.state.shippingOption}</span>
                 </p>
                 <p>
-                  Coupon:<span className="text-end">-$</span>
+                  Coupon:<span className="text-end">{this.props.match.params.coupon===true ?<span> -${(this.priceCalculation()*0.1).toFixed(2)}</span>:<span>$0</span>}</span>
                 </p>
                 <hr />
                 <p style={{ fontWeight: "bold" }}>
-                  Total ({arrProd.length} items){" "}
+                  Total ({arrProd.length} items){" "} 
                   <span className="text-end">
-                    ${this.priceCalculation() + this.state.shippingOption}
+                    ${this.totalPrice()}
                   </span>
+                  
                 </p>
                 <button
                   onClick={(element) => this.placeOrder(element)}
@@ -356,56 +459,11 @@ export default class Checkout extends Component {
                   className="d-block mx-auto"
                   style={{ color: "white" , padding:"6px"}}
 
-                  // data-bs-toggle="modal"
-                  // data-bs-target="#exampleModal"
                 >
                   Place order
                 </button>
-{/* 
-                <div
-                  className="modal fade"
-                  id="exampleModal"
-                  tabIndex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5
-                          className="modal-title text-center"
-                          id="exampleModalLabel"
-                        >
-                          Message
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div className="modal-body">
-                        <div>{this.state.messageName}</div>
-                        <div>{this.state.messageStreet}</div>
-                        <div>{this.state.messageHouseNum}</div>
-                        <div>{this.state.messageCity}</div>
-                        <div>{this.state.messageEmail}</div>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Close
-                        </button>
-                      </div>
-                    </div> */}
-                  {/* </div> */}
-                {/* </div> */}
-
-                <br />
+                  <div className="payment" ref={this.paymentRef}></div>
+                
               </div>
             </div>
           </div>

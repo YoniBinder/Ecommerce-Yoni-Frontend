@@ -15,7 +15,7 @@ export default function Home() {
                 <h2 className="banner font-weight-bold">Order now and don't be concerned!</h2>
                 <br/>
                 <Link to="/catalog" className="btn btn-visit d-block mx-auto" style={{width:"200px",color:"orange",backgroundColor:"black", fontSize:"20px"}}>Visit Shop</Link>
-                <div id="comment">This website developed by MERN technology stack</div>
+                <div id="comment">*This website developed with MERN technology stack</div>
             </div>
             <h3 className="pl-5 banner bg-light pt-3 pb-3">Best sellers</h3>
             <div className="container-fluid bg-light d-flex justify-content-center"> 

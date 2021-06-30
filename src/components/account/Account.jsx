@@ -2,6 +2,7 @@ import React, { useState,useEffect,useRef} from 'react'
 // import Auth from '../../Auth'
 import {useAuth} from '../../context/AuthShopContext'
 import axios from 'axios'
+import './Account.css'
 
 export default function Account(props) {
 
@@ -14,6 +15,8 @@ export default function Account(props) {
     const {logout}=useAuth()
     const {orders}=useAuth()
     const imgRef = useRef(null)
+    const [update,setUpdate]=useState(false)
+
     useEffect(()=>{
 
         if(currentUser){
@@ -68,22 +71,25 @@ export default function Account(props) {
             logout()
         }
     function changeValue(e){
+        setUpdate(false)
         if(e.target.id==="phoneNumber") setPhone(e.target.value)
         if(e.target.id==="country") setCountry(e.target.value)
         if(e.target.id==="firstName") setFirstName(e.target.value)
         if(e.target.id==="lastName") setLastName(e.target.value)
+
      }
     function handleForm(e){
         e.preventDefault()
-        axios.put(`${process.env.REACT_APP_PROXY}/users/${currentUser._id}`,{
-            ...currentUser,
+        axios.put(`${process.env.REACT_APP_PROXY}/users/${currentUser.id}`,{
             firstName: firstName,
             lastName: lastName,
             phoneNumber: phone,
             country: country,
+            ...currentUser,
           })
           .then(function (response) {
-            console.log(response.data);
+              
+                setUpdate(true)
           })
           .catch(function (error) {
             console.log(error);
@@ -91,7 +97,7 @@ export default function Account(props) {
     }
 
 
-    
+    console.log(currentUser)
     return (
         <div className="container">
             <h1 className="text-center mt-4">Hello, {currentUser && currentUser.username }</h1>
@@ -143,11 +149,14 @@ export default function Account(props) {
                             <input type="text" className="form-control" id="userName" defaultValue={currentUser.username} disabled/>
                         </div>
                         </div>
+                        </div>
+                        </div>
+                        
                         <hr/>
-                        <button type="submit"style={{width:"200px"}} className="btn btn-warning d-block mx-auto mb-1">Update Details</button>
-                        </div>
-                        </div>
+                        <button type="submit" className="btn btn-warning d-block mx-auto" style={{width:"200px"}}>Update Details</button>
+                        {update && <div className="update" >update completed!</div>}
                         </form>
+                        
                 </div>
                 </div>
             </div>

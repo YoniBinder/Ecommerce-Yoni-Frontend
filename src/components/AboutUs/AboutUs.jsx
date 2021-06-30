@@ -16,7 +16,7 @@ export default function AboutUs() {
             <br/> Our store started from 2019, and we have so far many clients around the world.
             <br/> We work only with audited suppliers and check carefully each product we recieve.
             <br/> We don't think that crypto is just an asset, but also a payment method.
-            <br/><br/><h4><b> You can also pay here in crypto!</b></h4>
+            <br/><br/><b> You can also pay here in crypto!</b>
             </p>
             <br/>
             <div className="text-center">Take a look at our presentor, Mr. Robert Kyosaki, explains on bitcoin:</div>

@@ -30,7 +30,7 @@ export default function Register() {
         password: passwordRef.current.value,
       })
       .then(function (response) {
-        history.push('/')
+        history.push('/login')
       })
       .catch(function (error) {
         console.log(error);

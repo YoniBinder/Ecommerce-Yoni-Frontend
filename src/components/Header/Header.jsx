@@ -31,7 +31,7 @@ export default function Header (){
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
+                <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     {/* <li className="nav-item">
                         <div className="navbar-brand">
@@ -82,14 +82,20 @@ export default function Header (){
                     <li className="nav-item">
                         <div className="nav-link"><NavLink to="/blog" style={{color:"black"}} activeStyle={header}>Blogs</NavLink></div>
                     </li>
+                    <li className="nav-item">
+                    {currentUser && <NavLink to="/account/profile" className="nav-link fw-bold" style={{color:"black"}} activeStyle={header}> {currentUser.username}</NavLink>}  
+
+                    </li>
+                    <li className="nav-item">
+                    {currentUser && currentUser.role==="Admin" && <NavLink to="/admin" className="nav-link" style={{color:"black"}} activeStyle={header}><i className="fas fa-user-cog"></i></NavLink> }
+
+                    </li>
                 </ul>
             </div>
-            {currentUser && <NavLink to="/account/profile" className="nav-link text-center" style={{color:"black"}} activeStyle={header}> {currentUser.username}</NavLink>}  
-            {currentUser && currentUser.role==="Admin" && <NavLink to="/admin" className="nav-link" style={{color:"black"}} activeStyle={header}><i className="fas fa-user-cog"></i></NavLink> }
                       
-            <input id="searcBox" className="me-2" style={{width:"130px"}} type="search" placeholder="Search" ref={callRef} onChange={()=>setUrl()} aria-label="Search"></input>
+            <input id="searcBox" className="me-2" type="search" placeholder="Search" ref={callRef} onChange={()=>setUrl()} aria-label="Search"></input>
             
-            <Link className="btn bg-info" to={"/catalog?q="+urlValue} style={{color:"black"}}>Search</Link>
+            <Link className="btn btn-sm bg-info fs-6" to={"/catalog?q="+urlValue} style={{color:"black"}}>Search</Link>
             
         
         </div>

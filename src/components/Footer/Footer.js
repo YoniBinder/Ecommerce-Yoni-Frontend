@@ -5,7 +5,7 @@ import './Footer.css';
 export default function Footer (){  
 
     return(
-      <div>
+      <div className="bg-light">
       <footer className="footer">
         <div>
           <a href="https://www.facebook.com/"><i className="fab fa-facebook-square cursor"></i></a>

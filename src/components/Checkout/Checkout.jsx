@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./Checkout.css";
 import PayWithPaypal from "./PayWithPayPal";
 import axios from 'axios'
+import CoinbaseCommerceButton from 'react-coinbase-commerce';
+import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
+
 
 let arrProd = JSON.parse(localStorage.getItem("products")) || [];
 let Authorization = `bearer ${JSON.parse(localStorage.getItem("token"))}`
@@ -14,7 +17,9 @@ export default class Checkout extends Component {
       myProducts: [],
       currentUser:false,
       total:0,
-      paypalComplete:false
+      paypalComplete:false,
+      bitcoinComplete:false,
+      checkout:null
     };
     this.emailRef = React.createRef();
     this.shipmentRef = React.createRef();
@@ -26,8 +31,30 @@ export default class Checkout extends Component {
     
   }
   componentDidMount() {
+    axios.post('https://api.commerce.coinbase.com/checkouts',  
+    {
+      "name": "Yoni Token Collection",
+      "description": "hardware/accessories",
+      "local_price": {
+          "amount": "50.00",
+          "currency": "USD"
+      },
+    "pricing_type": "fixed_price",
+    "requested_info": [ ]
+  },
+      {headers: {"X-CC-Api-Key": "486c76f2-9b0b-4b10-a383-5210a1661ad2",
+                  'X-CC-Version':'2018-03-22'
+                } 
+      }
+      
+    ).then((response)=>{
+      this.setState({checkout:response.data.data.id})
+    }).catch((error)=>
+      console.log(error))
+
     axios.get(`${process.env.REACT_APP_PROXY}/products`).then((response)=>{
       this.setState({myProducts:response.data})
+      
     })
 
     axios.get(`${process.env.REACT_APP_PROXY}/current`, {headers: {Authorization}}).then((response)=>{ 
@@ -78,7 +105,7 @@ export default class Checkout extends Component {
         this.setState({shippingOption:0})
     }
   }
-
+  
  
   itemsSumCalculation() {
     let totalsum = 0;
@@ -96,6 +123,8 @@ export default class Checkout extends Component {
       return this.itemsSumCalculation()+this.state.shippingOption
     
   }
+ 
+
   setErrorPayment(input, message) {
     input.className  = 'payment error';
     input.innerText = message;
@@ -208,7 +237,7 @@ submitForm(e){
   }
   
   render() {
-
+   
     return (
       <div>
         <div className="container-fluid">
@@ -318,9 +347,17 @@ submitForm(e){
                   {" "}
                   The payment that was choosen is:
                 </div>
-                <br />
-          
+                <br/>
+
+
+                {/* Cash Payment */}
+                {this.props.match.params.payment==="cash" && 
+                <div className="text-center font-weight-bold" >Cash. Please prepare exact change</div>}
+
+                {/* Paypal Payment */}
+                
                 {(this.props.match.params.payment==="paypal" && !this.state.paypalComplete) && 
+                
                 <PayWithPaypal 
                 amount={this.totalPrice()} 
                 currency={"USD"} 
@@ -328,11 +365,28 @@ submitForm(e){
                 onSuccess={(details, data)=>details.status==="COMPLETE" && this.setState({paypalComplete:true})}
                 onError={(err)=>alert(err)}
                 />}
-                {(this.props.match.params.payment==="paypal" && this.state.paypalComplete) && 
+              
+
+                {((this.props.match.params.payment==="paypal" && this.state.paypalComplete)
+                || (this.props.match.params.payment==="bitcoin" && this.state.bitcoinComplete)) && 
                 <div className="text-center font-weight-bold text-success">Payment Confirmed!</div>}
                 
-                {this.props.match.params.payment==="cash" && <div className="text-center font-weight-bold" >Cash. Please prepare exact change</div>}
-                <br/><br/>
+               
+                {/* Bitcoin Payment */}
+                {(this.props.match.params.payment==="bitcoin" && !this.state.bitcoinComplete) &&
+                
+              
+                <div className="text-center">
+
+                      <CoinbaseCommerceButton 
+                     
+                      styled={true} 
+                      checkoutId={this.state.checkout} 
+                      onChargeSuccess={(message)=>this.setState({bitcoinComplete:true})}/>
+                </div>
+                }
+
+              <br/>
             </div>
             <div className="col-3">
               <div className="orderDetails">

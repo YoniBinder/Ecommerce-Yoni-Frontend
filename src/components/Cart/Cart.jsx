@@ -109,7 +109,7 @@ export default function Cart() {
                             </label>
                         </p>
                             <p className="radioP">
-                            <input type="radio" name="payment" id="r4" disabled/>
+                            <input type="radio" name="payment" id="r4" value="bitcoin" required/>
                             <label htmlFor="r4">
                                 <span className="radioButtonGraph"></span>
                                 Bitcoin

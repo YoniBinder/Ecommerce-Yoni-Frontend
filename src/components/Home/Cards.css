@@ -20,12 +20,39 @@
   
   .cards:hover{
        transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+      box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
   }
+.ca{
+  padding:5px;
+  width: 160px;
+  height:160px;
+}
+.insid{
+  position:absolute ;
+  top:250px;
+  left:50px
+}
 
 
-
-  
+  @media only screen and (max-width: 600px) {
+    .ca{
+      width:100px !important;
+      height:160px !important;
+      padding:3px !important
+    }
+    .title{
+      font-size: 10px !important;
+    }
+    .ca{
+      width: 50px !important;
+      height:50px !important;
+    }
+    .insid{
+      position:absolute !important;
+      top:30px !important;
+      left:0px !important
+    }
+  }
   
   
   

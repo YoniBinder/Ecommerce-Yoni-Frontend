@@ -28,6 +28,7 @@
   }
   #searcBox{
     margin:auto auto;
+    width:110px;
   }
 
   #numItems{
@@ -38,7 +39,3 @@
     color:orangered;
   }
 
-/* header{
-  color:orange;
-  pointer-events: none;
-} */

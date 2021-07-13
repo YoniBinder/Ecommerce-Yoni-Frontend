@@ -1,12 +1,5 @@
 
 
-.body{
-    background-image:URL('../../pictures/catalogBackgroud.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height:1500px;
-}
-
 .btnAdd{
     background-color: orange;
     border:1px grey solid;

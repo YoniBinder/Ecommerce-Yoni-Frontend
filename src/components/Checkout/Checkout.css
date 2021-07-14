@@ -111,7 +111,15 @@
 	box-sizing: border-box;
 }
 
-
+.pay{
+	background-color: rgb(94, 255, 0);
+	margin-left: 140px;
+	padding:5px 20px;
+	width:120px;
+	text-align: center;
+	display: block;
+	border-radius: 20px;
+}
 
 
 

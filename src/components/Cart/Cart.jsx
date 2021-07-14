@@ -99,13 +99,14 @@ export default function Cart() {
                             </label>
                         </p>
                         <p className="radioP">
-                            <input type="radio" name="payment" id="r3" disabled />
+                            <input type="radio" name="payment" id="r3" value="credit" required />
                             <label htmlFor="r3">
                                 <span className="radioButtonGraph"></span>
                                 Credit Card
                                 <i className="fab fa-cc-mastercard" style={{color:"red"}}></i>
                                 <i className="fab fa-cc-amex" style={{color:"blue"}}></i>
                                 <i className="fab fa-cc-visa" style={{color:"grey"}}></i>
+                                <i className="fa fa-cc-discover" style={{color:"orange"}}></i>
                             </label>
                         </p>
                             <p className="radioP">

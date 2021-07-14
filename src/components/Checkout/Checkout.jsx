@@ -4,6 +4,9 @@ import PayWithPaypal from "./PayWithPayPal";
 import axios from 'axios'
 import CoinbaseCommerceButton from 'react-coinbase-commerce';
 import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
+
 
 
 let arrProd = JSON.parse(localStorage.getItem("products")) || [];
@@ -19,7 +22,13 @@ export default class Checkout extends Component {
       total:0,
       paypalComplete:false,
       bitcoinComplete:false,
-      checkout:null
+      checkout:null,
+      creditComplete:false,
+      cvc: '',
+      expiry: '',
+      focus: '',
+      name: '',
+      number: '',
     };
     this.emailRef = React.createRef();
     this.shipmentRef = React.createRef();
@@ -236,6 +245,17 @@ submitForm(e){
    
   }
   
+  handleInputFocus = (e) => {
+    this.setState({ focus: e.target.name });
+  }
+  
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    
+    this.setState({ [name]: value });
+  }
+
+
   render() {
    
     return (
@@ -354,6 +374,61 @@ submitForm(e){
                 {this.props.match.params.payment==="cash" && 
                 <div className="text-center font-weight-bold" >Cash. Please prepare exact change</div>}
 
+
+                {/* Credit Payment */}
+                {(this.props.match.params.payment==="credit" && !this.state.creditComplete) &&
+                <div id="PaymentForm">
+                   <div className="row">
+                  <div className="col">
+                        <Cards
+                          cvc={this.state.cvc}
+                          expiry={this.state.expiry}
+                          focused={this.state.focus}
+                          name={this.state.name}
+                          number={this.state.number}
+                        />
+                  </div>
+                  <div className="col">
+                          <input
+                            className="m-2"
+                            type="tel"
+                            name="number"
+                            placeholder="Card Number"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                          />
+                          <input
+                            className="m-2"
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                          />
+                          <input
+                            className="m-2"
+                            type="number"
+                            name="expiry"
+                            placeholder="Valid Thru"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                          />
+                          <input
+                           className="m-2 "
+                            type="number"
+                            name="cvc"
+                            placeholder="CVC"
+                            onChange={this.handleInputChange}
+                            onFocus={this.handleInputFocus}
+                          />
+                          <br/><br/>
+                          <button className="pay" onClick={()=>this.setState({creditComplete:true})}>Pay</button>
+                        </div>
+                        </div>
+                      </div>
+
+                }
+
                 {/* Paypal Payment */}
                 
                 {(this.props.match.params.payment==="paypal" && !this.state.paypalComplete) && 
@@ -368,7 +443,9 @@ submitForm(e){
               
 
                 {((this.props.match.params.payment==="paypal" && this.state.paypalComplete)
-                || (this.props.match.params.payment==="bitcoin" && this.state.bitcoinComplete)) && 
+                || (this.props.match.params.payment==="bitcoin" && this.state.bitcoinComplete)
+                || (this.props.match.params.payment==="credit" && this.state.creditComplete)
+                ) && 
                 <div className="text-center font-weight-bold text-success">Payment Confirmed!</div>}
                 
                

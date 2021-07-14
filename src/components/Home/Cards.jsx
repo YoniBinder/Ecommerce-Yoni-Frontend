@@ -12,7 +12,7 @@ export default function Cards(props) {
                 <img src={props.image} alt="..." className="ca alignCenter cursor"/>
                 <div className="title">{props.title}</div>
               
-                <div className="insid">
+                <div className="inside">
                     {
                     (props.price===props.onsale)?
                     (<div><b>${props.price}</b></div>):

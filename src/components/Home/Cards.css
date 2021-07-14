@@ -27,7 +27,7 @@
   width: 160px;
   height:160px;
 }
-.insid{
+.inside{
   position:absolute ;
   top:250px;
   left:50px
@@ -47,7 +47,7 @@
       width: 50px !important;
       height:50px !important;
     }
-    .insid{
+    .inside{
       position:absolute !important;
       top:30px !important;
       left:0px !important

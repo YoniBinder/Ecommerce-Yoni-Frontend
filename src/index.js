@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
+
 import './index.css';
 import Product from './components/Product/Product';
 import Footer from './components/Footer/Footer';
@@ -26,8 +27,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import ProtectedRouteAdmin from './components/ProtectedRouteAdmin'
 import Admin from './components/Admin/Admin'
 import {AuthShopProvider} from './context/AuthShopContext' 
-ReactDOM.render(
 
+ReactDOM.render(
     <div>
     <Router>
     <AuthShopProvider>

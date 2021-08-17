@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './PageNotFound.css'
-import bitOnfire from './bitcoinCrash.jpg'
+import bitOnfire from '../../pictures/bitcoinCrash.jpg'
 export default class PageNotFound extends Component {
 
     render() {

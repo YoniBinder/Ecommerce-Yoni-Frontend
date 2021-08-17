@@ -18,7 +18,7 @@ export default class Checkout extends Component {
     this.state = {
       shippingOption: 0,
       myProducts: [],
-      currentUser:false,
+      currentUser:{},
       total:0,
       paypalComplete:false,
       bitcoinComplete:false,
@@ -36,7 +36,7 @@ export default class Checkout extends Component {
     this.fullNameRef = React.createRef();
     this.houseNumberRef = React.createRef();
     this.cityNameRef = React.createRef();
-    this.paymentRef = React.createRef();
+    this.orderRef = React.createRef();
     
   }
   componentDidMount() {
@@ -66,7 +66,7 @@ export default class Checkout extends Component {
       
     })
 
-    axios.get(`${process.env.REACT_APP_PROXY}/current`, {headers: {Authorization}}).then((response)=>{ 
+    axios.get(`${process.env.REACT_APP_PROXY}/users/current`, {headers: {Authorization}}).then((response)=>{ 
       this.setState({currentUser:response.data})
   })
  
@@ -134,98 +134,94 @@ export default class Checkout extends Component {
   }
  
 
-  setErrorPayment(input, message) {
-    input.className  = 'payment error';
+  setErrorMessageOrder(input, message) {
+    input.className  = 'order error';
     input.innerText = message;
   }
 
 
-  setErrorFor(input, message) {
+  setErrorMessage(input, message) {
 	const formControl = input.parentElement;
 	const small = formControl.querySelector('small');
 	formControl.className = 'formControl error';
 	small.innerText = message;
 }
 
-  setSuccessFor(input) {
+  setSuccessMessage(input) {
 	const formControl = input.parentElement;
 	formControl.className = 'formControl success';
 }
-submitForm(e){
-  e.preventDefault()
-  
+  isPaymentSuccess(){
+    if(this.props.match.params.payment==="cash")
+       return true
+    else if(this.props.match.params.payment==="paypal" && this.state.paypalComplete)
+       return true;
+    else if(this.props.match.params.payment==="credit" && this.state.creditComplete)
+       return true;
+    else if(this.props.match.params.payment==="bitcoin" && this.state.bitcoinComplete)
+       return true;
+    return false
   }
-  
-  placeOrder(e) {
-    e.preventDefault()
+
+  isShippingDetailsFilled(){
     let fullName = this.fullNameRef.current.value.trim();
     let houseNumber = this.houseNumberRef.current.value.trim();
     let city = this.cityNameRef.current.value.trim();
     let street = this.streetNameRef.current.value.trim();
-    let email = this.emailRef.current.value.trim();
 
-    let houseNum = new RegExp("^[0-9]{1,4}$", "gm");
-   
+    let counter=0
 
-    let flag1 = 0;
-    let flag2 = 0;
-    let flag3 = 0;
-    let flag4 = 0;
-    
+    let houseValidNumber = new RegExp("^[0-9]{1,4}$", "gm");
 
-    if (fullName==='') {
-      this.setErrorFor(this.fullNameRef.current, 'Name cannot be blank');
-      
-    } else {
-      this.setSuccessFor(this.fullNameRef.current);
-      flag1 = 1;
+    if (fullName==='')
+      this.setErrorMessage(this.fullNameRef.current, 'Name cannot be blank');
+    else{
+      this.setSuccessMessage(this.fullNameRef.current);
+      counter++
     }
 
-
-    if (city==='') {
-      this.setErrorFor(this.cityNameRef.current, 'City cannot be blank');
-      
-    } else {
-      this.setSuccessFor(this.cityNameRef.current);
-      flag2 = 1;
+    if (city==='') 
+      this.setErrorMessage(this.cityNameRef.current, 'City cannot be blank');
+    else{ 
+      this.setSuccessMessage(this.cityNameRef.current);
+      counter++
     }
 
-    if (street==='') {
-      this.setErrorFor(this.streetNameRef.current, 'Street cannot be blank');
-    } else {
-      this.setSuccessFor(this.streetNameRef.current);
-      flag3 = 1;
+    if (street==='') 
+      this.setErrorMessage(this.streetNameRef.current, 'Street cannot be blank');
+    else {
+      this.setSuccessMessage(this.streetNameRef.current);
+      counter++
     }
 
     if(houseNumber === '') {
-      this.setErrorFor(this.houseNumberRef.current, 'House number cannot be blank');
-    } else if (!houseNum.test(houseNumber)) {
-      this.setErrorFor(this.houseNumberRef.current, 'Not a valid house number');
+      this.setErrorMessage(this.houseNumberRef.current, 'House number cannot be blank');
+    } else if (!houseNumber.test(houseValidNumber)) {
+      this.setErrorMessage(this.houseNumberRef.current, 'Not a valid house number');
     } else {
-      this.setSuccessFor(this.houseNumberRef.current);
-      flag4 = 1;
+      this.setSuccessMessage(this.houseNumberRef.current);
+      counter++
     }
 
-    if(this.props.match.params.payment==="paypal" && !this.state.paypalComplete){
-      this.setErrorPayment(this.paymentRef.current, 'Payment not completed');
-      return;
-    }
+    if (counter===4)
+      return true
+    return false
+  }
 
-      
-
-    if (flag1 === 1 && flag2 === 1 && flag3 === 1 && flag4 === 1) {
+  placeOrder(e) {
+    e.preventDefault()
+    if (this.isPaymentSuccess() && this.isShippingDetailsFilled() )
       axios.post(`${process.env.REACT_APP_PROXY}/orders`,{
-
         userId: this.state.currentUser._id,
         products: arrProd,
-        city: city,
-        street: street,
-        house_number: houseNumber,
+        city: this.cityNameRef.current.value.trim(),
+        street: this.streetNameRef.current.value.trim(),
+        house_number: this.houseNumberRef.current.value.trim(),
         total:this.itemsSumCalculation()
       })
       .then(function (response) {
         axios.post(`${process.env.REACT_APP_PROXY}/sendMailToClient`,{
-          to : email,
+          to : this.state.currentUser.email,
           subject :'order registered',
           orderNumber:response.data.reference
           })
@@ -240,9 +236,14 @@ submitForm(e){
       })
       .catch(function (error) {
         console.log(error);
-      });    
-    }
-   
+      }); 
+      else{
+        if (!this.isShippingDetailsFilled())
+          this.setErrorMessageOrder(this.orderRef.current, 'Please fill the form where * is shown');
+        else
+          this.setErrorMessageOrder(this.orderRef.current, 'Payment not completed');
+
+      }
   }
   
   handleInputFocus = (e) => {
@@ -305,7 +306,7 @@ submitForm(e){
                   <input
                     type="text"
                     ref={this.emailRef}
-                    value={this.state.currentUser ? this.state.currentUser.email:""} 
+                    value={this.state.currentUser && this.state.currentUser.email} 
                     disabled
                   ></input>
                    <i className="fas fa-check-circle"></i>
@@ -584,7 +585,6 @@ submitForm(e){
                   
                 </p>
                 <button
-                  onClick={(element) => this.placeOrder(element)}
                   type="submit"
                   id="checkoutBtn"
                   className="d-block mx-auto"
@@ -593,7 +593,7 @@ submitForm(e){
                 >
                   Place order
                 </button>
-                  <div className="payment" ref={this.paymentRef}></div>
+                  <div className="order" ref={this.orderRef}></div>
                 
               </div>
             </div>

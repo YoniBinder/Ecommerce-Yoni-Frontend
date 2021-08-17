@@ -29,17 +29,19 @@ export default function Product (props){
      })
    },[])
 
-  function updateState(e){
+  function updateAmount(e){
      let counter=item
          if(e.target.value==="+")
             setItem(++counter)
          if(e.target.value==="-" && counter>1)
-            setItem(--counter)
-         if(e.target.classList[0]==="smallPics")   
-            setImage(e.target.src)
+            setItem(--counter)   
+            
+  }
+  function updateMainPicture(e){
+      setImage(e.target.src)
   }
 
-  function addedToCart(){
+  function addToCart(){
    if(arrProd.find((obj)=>obj.title===result.title) )
       setMessage("already")
    else{  
@@ -54,13 +56,13 @@ export default function Product (props){
          <div className="row">
             <div className="col-2">
             <br></br>  
-            <img onClick={(event)=>updateState(event)} alt="..." src={T1} className="smallPics mx-auto d-block cursor"></img>
+            <img onClick={(e)=>updateMainPicture(e)} alt="..." src={T1} className="smallPics mx-auto d-block cursor"></img>
             <br></br>  
-            <img onClick={(event)=>updateState(event)} alt="..." src={T1_scale2} className="smallPics mx-auto d-block cursor"></img>
+            <img onClick={(e)=>updateMainPicture(e)} alt="..." src={T1_scale2} className="smallPics mx-auto d-block cursor"></img>
             <br></br>
-            <img onClick={(event)=>updateState(event)} alt="..." src={T1_scale3} className="smallPics mx-auto d-block cursor"></img>
+            <img onClick={(e)=>updateMainPicture(e)} alt="..." src={T1_scale3} className="smallPics mx-auto d-block cursor"></img>
             <br></br> 
-            <img onClick={(event)=>updateState(event)} alt="..." src={T1_scale4} className="smallPics mx-auto d-block cursor"></img>
+            <img onClick={(e)=>updateMainPicture(e)} alt="..." src={T1_scale4} className="smallPics mx-auto d-block cursor"></img>
             </div>
             <div className="col-6">
             <br/><br/>
@@ -84,8 +86,8 @@ export default function Product (props){
                <br></br>
                <div className="price">{result && (result.price!==result.onsale?<div><span style={{color:"red",textDecoration:"line-through"}}>(${result.price})</span> ${result.onsale} per unit</div>:<div>${result.price} per unit</div>)}</div>
                <span>Quantity:&nbsp; 
-               <input onClick={(event)=>updateState(event)} type="button" className="btnQty" value="-"/>&nbsp; {item} &nbsp;
-               <input onClick={(event)=>updateState(event)} type="button" className="btnQty" value="+"/>
+               <input onClick={(e)=>updateAmount(e)} type="button" className="btnQty" value="-"/>&nbsp; {item} &nbsp;
+               <input onClick={(e)=>updateAmount(e)} type="button" className="btnQty" value="+"/>
                
                </span>
             </div>
@@ -115,7 +117,7 @@ export default function Product (props){
                <div>ready to ship in:</div>
                <div style={{fontWeight:"bold"}}>3-5 bussiness days</div>
                <br></br><br></br>
-               <button onClick={()=>addedToCart()} className="mx-auto d-block cursor buyBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >add to Cart</button>
+               <button onClick={()=>addToCart()} className="mx-auto d-block cursor buyBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >add to Cart</button>
                
                <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div className="modal-dialog">

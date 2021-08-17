@@ -27,7 +27,7 @@ export function AuthShopProvider({children}) {
 
     async function signup(){
         let Authorization = await `bearer ${JSON.parse(localStorage.getItem("token"))}`
-        axios.get(`${process.env.REACT_APP_PROXY}/current`, {headers: {Authorization}}).then((response)=>{ 
+        axios.get(`${process.env.REACT_APP_PROXY}/users/current`, {headers: {Authorization}}).then((response)=>{ 
             setCurrentUser(response.data)
         return Auth.login(()=>history.push("/"))
         })
@@ -40,7 +40,7 @@ export function AuthShopProvider({children}) {
     }
 
     useEffect(()=>{
-        axios.get(`${process.env.REACT_APP_PROXY}/current`, {headers: {Authorization}}).then((response)=>{ 
+        axios.get(`${process.env.REACT_APP_PROXY}/users/current`, {headers: {Authorization}}).then((response)=>{ 
             setCurrentUser(response.data)
                  
         })
@@ -50,7 +50,7 @@ export function AuthShopProvider({children}) {
         axios.get(`${process.env.REACT_APP_PROXY}/orders`).then((response)=>{ 
             setOrders(response.data)
         })
-        axios.get(`${process.env.REACT_APP_PROXY}/details`).then((response)=>{ 
+        axios.get(`${process.env.REACT_APP_PROXY}/store`).then((response)=>{ 
             setDetails(response.data)
         })
         axios.get(`${process.env.REACT_APP_PROXY}/users`).then((response)=>{ 

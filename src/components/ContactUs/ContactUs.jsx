@@ -7,7 +7,9 @@ import markerIconPng from 'leaflet/dist/images/marker-icon.png'
 import {Icon} from 'leaflet'
 import {useAuth} from '../../context/AuthShopContext'
 import axios from 'axios'
-import {useHistory } from "react-router-dom";
+import {useHistory,Link } from "react-router-dom";
+
+
 
 export default function ContactUs() {
 
@@ -100,7 +102,9 @@ export default function ContactUs() {
                                   <div>
                                   <span className="text-center"><i className="fab fa-bitcoin" style={{color:"orange",fontSize:"20px"}}></i>{details && details[0].storeName}, </span>  
                                     <span><b>{details && details[0].storeAddress}</b></span><br/>
-                                    <a href="http://localhost:3000/home"><img alt="..." src={Store} style={{width:"105px",height:"75px", marginLeft:"30px"}}/></a>
+                                    <Link to="/">
+                                        <img alt="..." src={Store} style={{width:"105px",height:"75px", marginLeft:"30px"}}/>
+                                    </Link>
                                   </div>
                                   </Popup>
                                 </Marker>

@@ -6,7 +6,7 @@ let Authorization = `bearer ${JSON.parse(localStorage.getItem("token"))}`
 
 class Auth{
     constructor(){
-        axios.get(`${process.env.REACT_APP_PROXY}/current`, {headers: {Authorization}}).then((user)=>{
+        axios.get(`${process.env.REACT_APP_PROXY}/users/current`, {headers: {Authorization}}).then((user)=>{
             if (user) {
                 this.authenticated=true
             } else {

@@ -1,15 +1,16 @@
 import React, { useState,useEffect,useRef} from 'react'
-// import Auth from '../../Auth'
 import {useAuth} from '../../context/AuthShopContext'
 import axios from 'axios'
 import './Account.css'
 
-export default function Account(props) {
+export default function Account() {
+    const [userDetails,setUserDetails]=useState({
+        firstName:'',
+        lastName:'',
+        phoneNumber:'',
+        country:'',
+    })
 
-    const [firstName,setFirstName]=useState("")
-    const [phone,setPhone]=useState("")
-    const [lastName,setLastName]=useState("")
-    const [country,setCountry]=useState("")
     const [order,setOrder]=useState([])
     const {currentUser}=useAuth()
     const {logout}=useAuth()
@@ -18,8 +19,13 @@ export default function Account(props) {
     const [update,setUpdate]=useState(false)
 
     useEffect(()=>{
-
+        //put this in the context area
         if(currentUser){
+            setUserDetails({
+                firstName:currentUser.firstName,
+                lastName:currentUser.lastName,
+                phoneNumber:currentUser.phoneNumber,
+                country:currentUser.country})
             let arrOrder = []
             for (let i=0;i<orders.length;i++) {
 
@@ -30,29 +36,26 @@ export default function Account(props) {
                         
             }
             setOrder(arrOrder)
+
+            console.log(currentUser)
     }
     },[currentUser,orders])
 
 
-    
-
-
-    function submitAdd(e){
+    function uploadPicture(e){
         var formData = new FormData();
         var imagefile = imgRef.current.files[0]
         formData.append("yourImage", imagefile);
-        axios.post(`${process.env.REACT_APP_PROXY}/image`, formData).then(
+        axios.post(`${process.env.REACT_APP_PROXY}/users/image`, formData).then(
             response => {
                 if (response.data.error){
                     console.log(response.data.message)
                 }
                 else{
                     alert(response.data.message)
-                    const user={
-                        ...currentUser,
-                        profileImage: imagefile.name,
-                    }
-                    axios.put(`${process.env.REACT_APP_PROXY}/users/${currentUser._id}`,user)
+                    axios.patch(`${process.env.REACT_APP_PROXY}/users/${currentUser._id}`,{
+                        profileImage: imagefile.name
+                    })
                       .then(function (response) {
                         console.log(response.data);
                       })
@@ -70,22 +73,21 @@ export default function Account(props) {
             await localStorage.removeItem("token")
             logout()
         }
-    function changeValue(e){
-        setUpdate(false)
-        if(e.target.id==="phoneNumber") setPhone(e.target.value)
-        if(e.target.id==="country") setCountry(e.target.value)
-        if(e.target.id==="firstName") setFirstName(e.target.value)
-        if(e.target.id==="lastName") setLastName(e.target.value)
-
+    function handleUserDetailsChanges(e){
+        setUpdate(false)  
+        if(e.target.id==="phoneNumber") setUserDetails({...userDetails, phoneNumber:e.target.value})
+        if(e.target.id==="country") setUserDetails({...userDetails,country:e.target.value})
+        if(e.target.id==="firstName") setUserDetails({...userDetails,firstName:e.target.value})
+        if(e.target.id==="lastName") setUserDetails({...userDetails,lastName:e.target.value})
      }
-    function handleForm(e){
+
+    function updateUserDetails(e){
         e.preventDefault()
-        axios.put(`${process.env.REACT_APP_PROXY}/users/${currentUser.id}`,{
-            firstName: firstName,
-            lastName: lastName,
-            phoneNumber: phone,
-            country: country,
-            ...currentUser,
+        axios.patch(`${process.env.REACT_APP_PROXY}/users/${currentUser.id}`,{
+            firstName: userDetails.firstName,
+            lastName: userDetails.lastName,
+            phoneNumber: userDetails.phoneNumber,
+            country: userDetails.country
           })
           .then(function (response) {
               
@@ -93,11 +95,10 @@ export default function Account(props) {
           })
           .catch(function (error) {
             console.log(error);
-          });    
+          });        
     }
 
-
-    console.log(currentUser)
+    
     return (
         <div className="container">
             <h1 className="text-center mt-4">Hello, {currentUser && currentUser.username }</h1>
@@ -110,7 +111,7 @@ export default function Account(props) {
                             <hr/>
                             <label htmlFor="img">Select image:</label>
                             <input type="file" ref={imgRef} name="yourImage" defaultValue="" />                            
-                            <button onClick={(e)=>submitAdd(e)} className="btn btn-warning d-block mx-auto">UPLOAD PICTURE</button>
+                            <button onClick={(e)=>uploadPicture(e)} className="btn btn-warning d-block mx-auto">UPLOAD PICTURE</button>
                     </div>
 
                 </div>
@@ -118,13 +119,13 @@ export default function Account(props) {
                 <div className="container border rounded mt-4 mb-4 p-3">
                     <h2 className="text-center">User Profile</h2>
                     <hr/>
-                    <form onSubmit={(event)=>handleForm(event)}>
+                    <form onSubmit={(e)=>updateUserDetails(e)}>
                         <div className="container">
                         <div className="row">
                         <div className="col">
                         <div className="mb-3">
                             <label htmlFor="firstName" className="form-label">First name</label>
-                            <input type="text" className="form-control" id="firstName" onChange={(event)=>changeValue(event)} defaultValue={currentUser.firstName} />
+                            <input type="text" className="form-control" id="firstName" onChange={e=>handleUserDetailsChanges(e)} defaultValue={currentUser.firstName} />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="emailAddress" className="form-label">Email address</label>
@@ -132,17 +133,17 @@ export default function Account(props) {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="country" className="form-label">Country</label>
-                            <input type="text" className="form-control" id="country" onChange={(event)=>changeValue(event)} defaultValue={currentUser.country}/>
+                            <input type="text" className="form-control" id="country" onChange={e=>handleUserDetailsChanges(e)} defaultValue={currentUser.country}/>
                         </div>
                         </div>
                         <div className="col">
                         <div className="mb-3">
                             <label htmlFor="laseName" className="form-label">Last name</label>
-                            <input type="text" className="form-control" id="lastName" onChange={(event)=>changeValue(event)} defaultValue={currentUser.lastName}/>
+                            <input type="text" className="form-control" id="lastName" onChange={e=>handleUserDetailsChanges(e)} defaultValue={currentUser.lastName}/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="phoneNumber" className="form-label">Phone number</label>
-                            <input type="text" className="form-control" id="phoneNumber" onChange={(event)=>changeValue(event)} defaultValue={currentUser.phoneNumber} />
+                            <input type="text" className="form-control" id="phoneNumber" onChange={e=>handleUserDetailsChanges(e)} defaultValue={currentUser.phoneNumber} />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="userName" className="form-label">User name</label>
@@ -176,7 +177,7 @@ export default function Account(props) {
             )}
             </div>
 
-            <button onClick={(e)=>userSignOut(e)} style={{width:"150px"}} className="btn d-block mx-auto btn-primary mb-3 mt-3">Sign out</button>
+            <button onClick={()=>userSignOut()} style={{width:"150px"}} className="btn d-block mx-auto btn-primary mb-3 mt-3">Sign out</button>
 
         </div>
         

@@ -2,7 +2,6 @@ import React, {useRef,useState} from 'react'
 import './Login.css';
 import { Form, Button, Card, Container,Alert } from "react-bootstrap";
 import {Link} from "react-router-dom"
-// import Auth from '../../Auth'
 import axios from 'axios'
 import {useAuth} from '../../context/AuthShopContext'
 
@@ -12,21 +11,10 @@ export default function Login (props) {
     const passwordRef=useRef()
     const {signup} = useAuth()
     const [error,setError] = useState('')
-    // const [loading,setLoading]=useState(false)
-    // function GoogleLogin(){
-    //     axios.get(`${process.env.REACT_APP_PROXY}/google`)
-    //       .then(function (response) {
-    //         console.log(response)
-    //         // Auth.login(()=>props.history.push("/home"))
-    //       })
-    //       .catch(function (error) {
-    //         setError('Failed to sign in');
-    //       });   
-    // }
-    
+
     function userLogin(e){
     e.preventDefault()
-    axios.post(`${process.env.REACT_APP_PROXY}/jwt`,{
+    axios.post(`${process.env.REACT_APP_PROXY}/users/jwt`,{
         email: emailRef.current.value,
         password: passwordRef.current.value,
       })

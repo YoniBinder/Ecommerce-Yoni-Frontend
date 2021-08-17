@@ -16,17 +16,6 @@ import Dashboard from './Dashboard';
 const dataProvider = simpleRestProvider(process.env.REACT_APP_PROXY);
 
 
-// const config = {
-//     apiKey: process.env.REACT_APP_FIREBASE_KEY,
-//     authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
-//     databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
-//     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-//     storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-//     messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID
-//   }
-
-// const authProvider = FirebaseAuthProvider(config);
-
 const App = () => (
       <Admin dashboard={Dashboard} dataProvider={dataProvider}>
           <Resource name="posts" list={PostList} edit={PostEdit} icon={PostIcon}/>

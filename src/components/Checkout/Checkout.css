@@ -93,14 +93,14 @@
 	visibility: visible;
 }
 
-.payment{
+.order{
 	color: #e74c3c;
 	visibility: hidden;
 	text-align: center;
 	font-size: 15px;
 }
 
-.payment.error{
+.order.error{
 	
 	visibility: visible;
 	

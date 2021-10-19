@@ -1,11 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
 .tooltip {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
 
   }
-  
+
 .tooltiptext {
     visibility: hidden;
     width: 120px;
@@ -22,7 +22,32 @@
     left: 50%;
     margin-left: -60px;
   }
-  
+  .searchBtn{
+    height:30px;
+
+  }
+  .pageLink{
+    font-family: 'Bad Script', cursive;
+    font-weight: bold;
+    position: relative;
+  }
+  .pageLink:before{
+
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      background-color: crimson;
+      height: 2px;
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 650ms;
+    
+  }
+  .pageLink:hover::before {
+    transform: scale(1);
+  }
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }
@@ -38,4 +63,3 @@
     padding:2.5px;
     color:orangered;
   }
-

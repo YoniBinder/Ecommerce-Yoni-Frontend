@@ -10,18 +10,18 @@ export function useAuth(){
 }
 
 
-export function AuthShopProvider({children}) {
+export default function AuthShopProvider({children}) {
 
     const history=useHistory()
     const [currentUser,setCurrentUser]=useState()
     const [cart,setCart]=useState([])
     const [products,setProducts]=useState([])
     const [orders,setOrders]=useState([])
-    const [users,setUsers]=useState([])
     const [url,setUrl]=useState()
     const [details,setDetails]=useState(null)
-    // const [loading, setLoading]= useState(true)
 
+    // const [loading, setLoading]= useState(true)
+    
 
     let Authorization = `bearer ${JSON.parse(localStorage.getItem("token"))}`
 
@@ -40,23 +40,23 @@ export function AuthShopProvider({children}) {
     }
 
     useEffect(()=>{
-        axios.get(`${process.env.REACT_APP_PROXY}/users/current`, {headers: {Authorization}}).then((response)=>{ 
-            setCurrentUser(response.data)
-                 
-        })
+        async function fetchUserData() {
+            let current=await axios.get(`${process.env.REACT_APP_PROXY}/users/current`, {headers: {Authorization}})
+            setCurrentUser(current.data)
+            
+            let userOrders=await axios.get(`${process.env.REACT_APP_PROXY}/orders/${current.data._id}`)
+            setOrders(userOrders.data)
+        }
+        fetchUserData();
+        
         axios.get(`${process.env.REACT_APP_PROXY}/products`).then((response)=>{ 
             setProducts(response.data)
         })
-        axios.get(`${process.env.REACT_APP_PROXY}/orders`).then((response)=>{ 
-            setOrders(response.data)
-        })
+        
         axios.get(`${process.env.REACT_APP_PROXY}/store`).then((response)=>{ 
             setDetails(response.data)
         })
-        axios.get(`${process.env.REACT_APP_PROXY}/users`).then((response)=>{ 
-            setUsers(response.data)
-        })
-       
+        
         setCart(JSON.parse(localStorage.getItem('products'))||[])
         setUrl(window.location.href)
     },[Authorization])
@@ -71,10 +71,9 @@ export function AuthShopProvider({children}) {
         products,
         url,
         orders,
-        details,
-        users
+        details
     } 
-
+    
     return (
         <AuthShopContext.Provider value={value}>
             {children}

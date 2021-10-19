@@ -47,39 +47,37 @@ export default function Header (){
                         </Popover>
                     }
                     >
-                    <Link to="/cart"><div className="navbar-brand" style={{margin:"1px"}}><i className="fas fa-shopping-cart"></i></div>{cart.length>0 && <span id="numItems" style={{marginLeft:"1px"}}>{cart.length}</span>} </Link>
+                    <Link to="/cart"><div className="navbar-brand"><i className="fas fa-shopping-cart"></i>{cart.length>0 && <span id="numItems" >{cart.length}</span>} </div></Link>
                     </OverlayTrigger>
                     </li>
                     
-                    
-                        
                     <li className="nav-item">
-                        <div className="nav-link" ><NavLink exact to="/" style={{color:"black"}} activeStyle={header}>Home</NavLink></div>
+                        <div className="nav-link pageLink ml-3" ><NavLink exact to="/" style={{color:"black"}} activeStyle={header}>Home</NavLink></div>
                     </li>
                     {!currentUser &&<li className="nav-item">
-                        <div className="nav-link"><NavLink to="/login" style={{color:"black"}} activeStyle={header}>Login</NavLink></div>
+                        <div className="nav-link pageLink ml-2"><NavLink to="/login" style={{color:"black"}} activeStyle={header}>Login</NavLink></div>
                     </li>}
                     <li className="nav-item">
-                        <div className="nav-link"><NavLink to="/register" style={{color:"black"}} activeStyle={header}>Register</NavLink></div>
+                        <div className="nav-link pageLink ml-2"><NavLink to="/register" style={{color:"black"}} activeStyle={header}>Register</NavLink></div>
                     </li>
                     <li className="nav-item">
-                        <div className="nav-link" ><NavLink to="/catalog" style={{color:"black"}} exact activeStyle={header}>Store</NavLink></div>
+                        <div className="nav-link pageLink ml-2" ><NavLink to="/catalog" style={{color:"black"}} exact activeStyle={header}>Store</NavLink></div>
                     </li>
                     <li className="nav-item">
-                        <div className="nav-link"><NavLink to="/contactUs" style={{color:"black"}} activeStyle={header}>Contact-Us</NavLink></div>
+                        <div className="nav-link pageLink ml-2"><NavLink to="/contactUs" style={{color:"black"}} activeStyle={header}>Contact-Us</NavLink></div>
                     </li>
                     <li className="nav-item">
-                        <div className="nav-link"><NavLink to="/aboutUs" style={{color:"black"}} activeStyle={header}>About-Us</NavLink></div>
+                        <div className="nav-link pageLink ml-2"><NavLink to="/aboutUs" style={{color:"black"}} activeStyle={header}>About-Us</NavLink></div>
                     </li>
                     <li className="nav-item">
-                        <div className="nav-link"><NavLink to="/blog" style={{color:"black"}} activeStyle={header}>Blogs</NavLink></div>
+                        <div className="nav-link pageLink ml-2"><NavLink to="/blog" style={{color:"black"}} activeStyle={header}>Blogs</NavLink></div>
                     </li>
                     <li className="nav-item">
-                    {currentUser && <NavLink to="/account/profile" className="nav-link fw-bold" style={{color:"black"}} activeStyle={header}> {currentUser.username}</NavLink>}  
+                    {currentUser && <NavLink to="/account/profile" className="nav-link fw-bold pageLink ml-2" style={{color:"black"}} activeStyle={header}> {currentUser.username}</NavLink>}  
 
                     </li>
                     <li className="nav-item">
-                    {currentUser && currentUser.role==="Admin" && <NavLink to="/admin" className="nav-link" style={{color:"black"}} activeStyle={header}><i className="fas fa-user-cog"></i></NavLink> }
+                    {currentUser && currentUser.role==="Admin" && <NavLink to="/admin" className="nav-link ml-2" style={{color:"black"}} activeStyle={header}><i className="fas fa-user-cog"></i></NavLink> }
 
                     </li>
                 </ul>
@@ -87,7 +85,7 @@ export default function Header (){
                       
             <input id="searcBox" className="me-2" type="search" placeholder="Search" ref={callRef} onChange={()=>setUrl()} aria-label="Search"></input>
             
-            <Link className="btn btn-sm bg-info fs-6" to={"/catalog?q="+urlValue} style={{color:"black"}}>Search</Link>
+            <Link className="btn p-1 px-4 rounded fw-bold searchBtn" to={"/catalog?q="+urlValue} style={{color:"black",background:"#ff0800"}}>Search</Link>
             
         
         </div>

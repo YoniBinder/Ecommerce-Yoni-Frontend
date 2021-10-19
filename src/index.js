@@ -26,7 +26,7 @@ import Account from './components/account/Account';
 import ProtectedRoute from './components/ProtectedRoute'
 import ProtectedRouteAdmin from './components/ProtectedRouteAdmin'
 import Admin from './components/Admin/Admin'
-import {AuthShopProvider} from './context/AuthShopContext' 
+import AuthShopProvider from './context/AuthShopContext' 
 
 ReactDOM.render(
     <div>

@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&display=swap');
+
+.background{
+    width: 100%;
+    background: linear-gradient(rgba(212, 139, 30, 0.95), rgba(212, 139, 30, 0.95)),
+      url(../../pictures/crypto.jpg) center no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.shopButton{
+    width: 160px;
+    color: orange;
+    background: black;
+    font-size: 26px;
+    border-radius: 5px;
+    padding:5px;
+    font-family: 'Dancing Script', cursive;
+}
+.shopButton:hover{
+    color:crimson
+}
 .shopping{
     height:380px;
 }

@@ -220,12 +220,11 @@ export default class Checkout extends Component {
         house_number: this.state.houseNumber,
         total:this.totalPrice()
       })
-      console.log(response) 
-      axios.post(`${process.env.REACT_APP_PROXY}/mails/sendMailToClient`,{
-      to : this.state.currentUser.email,
-      subject :'order registered',
-      orderNumber:response.data.reference
-      
+      console.log(response.data.reference)
+      axios.post(`http://localhost:5000/mails/sendMailToClient`,{
+        to : "jonibinder1986@gmail.com",
+        subject :'order registered',
+        orderNumber:response.data.reference
       })
       .then(response=> {
           localStorage.setItem("products", JSON.stringify([]));

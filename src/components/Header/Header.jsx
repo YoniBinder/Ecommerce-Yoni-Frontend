@@ -47,7 +47,9 @@ export default function Header (){
                         </Popover>
                     }
                     >
-                    <Link to="/cart"><div className="navbar-brand"><i className="fas fa-shopping-cart"></i>{cart.length>0 && <span id="numItems" >{cart.length}</span>} </div></Link>
+                    <Link to="/cart"><div className="navbar-brand">
+                    <i className="fas fa-shopping-cart"></i>{cart.length>0 && <span id="numItems" >{cart.length}</span>} 
+                    </div></Link>
                     </OverlayTrigger>
                     </li>
                     

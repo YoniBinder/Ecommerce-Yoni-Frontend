@@ -19,7 +19,6 @@ export default class Checkout extends Component {
       shippingOption: 0,
       myProducts: [],
       currentUser:{},
-      total:0,
       paypalComplete:false,
       bitcoinComplete:false,
       checkout:null,
@@ -29,6 +28,12 @@ export default class Checkout extends Component {
       focus: '',
       name: '',
       number: '',
+      streetName:"",
+      fullName:"",
+      houseNumber:"",
+      cityName:"",
+      email:"",
+      id:""
     };
     this.emailRef = React.createRef();
     this.shipmentRef = React.createRef();
@@ -68,9 +73,12 @@ export default class Checkout extends Component {
 
     axios.get(`${process.env.REACT_APP_PROXY}/users/current`, {headers: {Authorization}}).then((response)=>{ 
       this.setState({currentUser:response.data})
+      this.setState({email:response.data.email})
+      this.setState({email:response.data.id})
   })
  
   }
+
   onChangeValue(e){
     switch(e.target.value) {
       case 'Pickup':
@@ -164,41 +172,34 @@ export default class Checkout extends Component {
   }
 
   isShippingDetailsFilled(){
-    let fullName = this.fullNameRef.current.value.trim();
-    let houseNumber = this.houseNumberRef.current.value.trim();
-    let city = this.cityNameRef.current.value.trim();
-    let street = this.streetNameRef.current.value.trim();
 
     let counter=0
 
-    let houseValidNumber = new RegExp("^[0-9]{1,4}$", "gm");
-
-    if (fullName==='')
+    if (this.state.fullName==='')
       this.setErrorMessage(this.fullNameRef.current, 'Name cannot be blank');
     else{
       this.setSuccessMessage(this.fullNameRef.current);
       counter++
     }
 
-    if (city==='') 
+    if (this.state.cityName==='') 
       this.setErrorMessage(this.cityNameRef.current, 'City cannot be blank');
     else{ 
       this.setSuccessMessage(this.cityNameRef.current);
       counter++
     }
 
-    if (street==='') 
+    if (this.state.streetName==='') 
       this.setErrorMessage(this.streetNameRef.current, 'Street cannot be blank');
     else {
       this.setSuccessMessage(this.streetNameRef.current);
       counter++
     }
 
-    if(houseNumber === '') {
+    if(this.state.houseNumber === '') {
       this.setErrorMessage(this.houseNumberRef.current, 'House number cannot be blank');
-    } else if (!houseNumber.test(houseValidNumber)) {
-      this.setErrorMessage(this.houseNumberRef.current, 'Not a valid house number');
-    } else {
+    } 
+    else {
       this.setSuccessMessage(this.houseNumberRef.current);
       counter++
     }
@@ -208,35 +209,34 @@ export default class Checkout extends Component {
     return false
   }
 
-  placeOrder(e) {
+  async placeOrder(e) {
     e.preventDefault()
-    if (this.isPaymentSuccess() && this.isShippingDetailsFilled() )
-      axios.post(`${process.env.REACT_APP_PROXY}/orders`,{
+    if (this.isPaymentSuccess() && this.isShippingDetailsFilled() ){
+     let response=await axios.post(`${process.env.REACT_APP_PROXY}/orders`,{
         userId: this.state.currentUser._id,
         products: arrProd,
-        city: this.cityNameRef.current.value.trim(),
-        street: this.streetNameRef.current.value.trim(),
-        house_number: this.houseNumberRef.current.value.trim(),
-        total:this.itemsSumCalculation()
+        city: this.state.cityName,
+        street: this.state.streetName,
+        house_number: this.state.houseNumber,
+        total:this.totalPrice()
       })
-      .then(function (response) {
-        axios.post(`${process.env.REACT_APP_PROXY}/sendMailToClient`,{
-          to : this.state.currentUser.email,
-          subject :'order registered',
-          orderNumber:response.data.reference
-          })
-          .then(response=> {
-              localStorage.setItem("products", JSON.stringify([]));
-              window.location.href = "/success/" + response.data.reference;
-            })
-          .catch(response=>{
-                console.log(response)
-            })
+      console.log(response) 
+      axios.post(`${process.env.REACT_APP_PROXY}/mails/sendMailToClient`,{
+      to : this.state.currentUser.email,
+      subject :'order registered',
+      orderNumber:response.data.reference
+      
+      })
+      .then(response=> {
+          localStorage.setItem("products", JSON.stringify([]));
+          window.location.href = "/success/" + response.data.reference;
+        })
+      .catch(response=>{
+            console.log(response)
+        })
         
-      })
-      .catch(function (error) {
-        console.log(error);
-      }); 
+  
+    }
       else{
         if (!this.isShippingDetailsFilled())
           this.setErrorMessageOrder(this.orderRef.current, 'Please fill the form where * is shown');
@@ -258,7 +258,6 @@ export default class Checkout extends Component {
 
 
   render() {
-   
     return (
       <div>
         <div className="container-fluid">
@@ -294,6 +293,9 @@ export default class Checkout extends Component {
                   <input
                     type="text"
                     ref={this.fullNameRef}
+                    name="fullName"
+                    onChange={this.handleInputChange}
+                    onFocus={this.handleInputFocus}
                   ></input>
                   <i className="fas fa-check-circle"></i>
                   <i className="fas fa-exclamation-circle"></i>
@@ -320,6 +322,9 @@ export default class Checkout extends Component {
                   <input
                     type="text"
                     ref={this.streetNameRef}
+                    name="streetName"
+                    onChange={this.handleInputChange}
+                    onFocus={this.handleInputFocus}
                   ></input>
                 <i className="fas fa-check-circle"></i>
                   <i className="fas fa-exclamation-circle"></i>
@@ -332,6 +337,9 @@ export default class Checkout extends Component {
                   <input
                     type="text"
                     ref={this.houseNumberRef}
+                    name="houseNumber"
+                    onChange={this.handleInputChange}
+                    onFocus={this.handleInputFocus}
                   ></input>
                   <i className="fas fa-check-circle"></i>
                   <i className="fas fa-exclamation-circle"></i>
@@ -344,6 +352,9 @@ export default class Checkout extends Component {
                   <input
                     type="text"
                     ref={this.cityNameRef}
+                    name="cityName"
+                    onChange={this.handleInputChange}
+                    onFocus={this.handleInputFocus}
                   ></input>
                   <i className="fas fa-check-circle"></i>
                   <i className="fas fa-exclamation-circle"></i>

@@ -33,7 +33,7 @@ export default function ContactUs() {
 
     function submitForm(e){
     e.preventDefault()
-    axios.post(`${process.env.REACT_APP_PROXY}/sendMailFromClient`,{
+    axios.post(`${process.env.REACT_APP_PROXY}/mails/sendMailFromClient`,{
         from: inputs.from,
         user:inputs.user,
         name: inputs.name,

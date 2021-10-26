@@ -2,9 +2,9 @@ import React, { useRef,useState} from 'react';
 import './Header.css';
 import {Link,NavLink} from "react-router-dom";
 import Logo from "../../pictures/bitcoinLogo.png";
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import ShoppingCart from './ShoppingCart'
-import Popover from 'react-bootstrap/Popover'
+// import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+// import ShoppingCart from './ShoppingCart'
+// import Popover from 'react-bootstrap/Popover'
 import {useAuth} from '../../context/AuthShopContext'
 
 
@@ -32,9 +32,9 @@ export default function Header (){
                 <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav">
+                <ul className="navbar-nav" >
                     <li>
-                    <OverlayTrigger
+                    {/* <OverlayTrigger
                     trigger={['hover', 'focus']}
                     key="bottom"
                     placement="bottom"
@@ -46,11 +46,12 @@ export default function Header (){
                         </Popover.Content>
                         </Popover>
                     }
-                    >
-                    <Link to="/cart"><div className="navbar-brand">
+                    > */}
+                    <Link to="/cart">
+                        <div className="navbar-brand">
                     <i className="fas fa-shopping-cart"></i>{cart.length>0 && <span id="numItems" >{cart.length}</span>} 
                     </div></Link>
-                    </OverlayTrigger>
+                    {/* </OverlayTrigger> */}
                     </li>
                     
                     <li className="nav-item">

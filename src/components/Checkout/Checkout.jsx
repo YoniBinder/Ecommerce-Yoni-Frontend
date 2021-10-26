@@ -577,7 +577,7 @@ export default class Checkout extends Component {
                 <br />
                 <p>
                   Item(s) total:{" "}
-                  <span className="text-end">${this.itemsSumCalculation().toFixed(2)}</span>
+                  <span className="text-end">${this.totalPrice().toFixed(2)}</span>
                 </p>
                 <p>
                   Shipping:{" "}

@@ -30,7 +30,7 @@ export default class Modals extends Component {
       
     }
     else{
-       arrProd.push({title:this.props.title,Item:this.state.Item});
+       arrProd.push({title:this.props.title,item:this.state.Item});
        localStorage.setItem('products', JSON.stringify(arrProd));
        this.setState({message:"added"});
     }

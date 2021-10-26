@@ -10,7 +10,7 @@ export default function ShoppingCart() {
 
   return (
     <div>
-      {(arrProd.length>0 && products)
+      {(arrProd.length>0)
       ?(arrProd.map((obj) => {
         let results = products.filter((prod) => {
           return prod.title === obj.title;
@@ -19,15 +19,15 @@ export default function ShoppingCart() {
           <div className="border" key={obj.title}>
             <div className="row">
               <div className="col-5">
-                <img className="popImg" src={results.image} alt="..." />
+                <img className="popImg" src={products&&results.image} alt="..." />
               </div>
               <div className="col-7">
                 <div>
-                  <b>{results.title}</b>
+                  <b>{products&&results.title}</b>
                 </div>
                 <br />
                 <div className="text-start">
-                  {obj.item} x ${results.onsale}
+                  {obj.item} x ${products&&results.onsale}
                 </div>
               </div>
             </div>

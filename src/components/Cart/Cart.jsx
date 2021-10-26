@@ -19,12 +19,6 @@ export default function Cart() {
     const [payment,setPayment]=useState("cash")
            
        
-    // useEffect(()=>{
-        // axios.get(`${process.env.REACT_APP_PROXY}/products`).then((response)=>{
-        //     setMyProducts(response.data)
-        // })
-    // })
-
     function changePayment(e){
         setPayment(e.target.value)
     }

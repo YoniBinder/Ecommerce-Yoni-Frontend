@@ -10,7 +10,7 @@ export default function ShoppingCart() {
 
   return (
     <div>
-      {(arrProd.length>0)
+      {products
       ?(arrProd.map((obj) => {
         let results = products.filter((prod) => {
           return prod.title === obj.title;

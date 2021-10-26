@@ -3,16 +3,15 @@ import './Cart.css'
 import Item from './Item'
 import {Link} from "react-router-dom"
 import CartEmpty from '../../pictures/cartEmpty.png'
-// import axios from 'axios'
 import {useAuth} from '../../context/AuthShopContext'
 
 let arrProd=JSON.parse(localStorage.getItem('products')) || []
 
 export default function Cart() {
-    const {myProducts}=useAuth()
+    const {products}=useAuth()
     const {currentUser}=useAuth()
     
-    // const [myProducts,setMyProducts]=useState([])
+    // const [products,setproducts]=useState([])
     const [coupon,setCoupon]=useState(null)
     const [couponValue,setCouponValue]=useState(null)
     const [couponButton,setCouponButton]=useState(false)
@@ -42,9 +41,9 @@ export default function Cart() {
     function priceCalculation(){
         let totalsum=0;
         for(let i=0;i<arrProd.length;i++){
-            for(let j=0;j<myProducts.length;j++)
-                if(arrProd[i].title===myProducts[j].title)
-                    totalsum+=myProducts[j].onsale*arrProd[i].item
+            for(let j=0;j<products.length;j++)
+                if(arrProd[i].title===products[j].title)
+                    totalsum+=products[j].onsale*arrProd[i].item
         }
         return totalsum
         
@@ -112,9 +111,9 @@ export default function Cart() {
                             </label>
                         </p>
                     </form>
-                    <p>Item(s) total: <span className="text-end">${myProducts&&priceCalculation()} </span></p>
+                    <p>Item(s) total: <span className="text-end">${products&&priceCalculation()} </span></p>
                     <hr/>
-                    <p style={{fontWeight:"bold"}}>Total ({arrProd.length} items) <span className="text-end">${myProducts&&priceCalculation()}</span></p>
+                    <p style={{fontWeight:"bold"}}>Total ({arrProd.length} items) <span className="text-end">${products&&priceCalculation()}</span></p>
                     {currentUser && <Link id="checkoutBtn" className="btn d-block mx-auto" to={`/checkout/${coupon}/${payment}`} style={{color:"white",padding:"15px 0px"}}>Proceed to checkout</Link>}
                     {!currentUser && <Link id="checkoutBtn" className="btn d-block mx-auto" to={`/login`} style={{color:"white",padding:"15px 0px"}}>Login before checkout</Link>}
                     <br/>
